@@ -1,0 +1,46 @@
+.form{
+    border: 2.2px solid #00909d;
+    border-radius: 10px;
+    
+    margin-top: 5rem;
+    margin-left: 25rem;
+    margin-right: 25rem;
+
+    padding: 1.5rem;
+
+    font-size: 19px;
+}
+
+.title{
+    text-align: center;
+}
+
+.formInput{
+    width: 98%;
+    
+    /* Padding */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem;
+
+    font-size: 15px;
+
+    border: 1px solid rgb(186, 186, 186);
+    border-radius: 3px;
+}
+
+.createBtn{
+    background-color: #1D86E4;
+
+    color: white;
+
+    margin-top: 1rem;
+
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+
+    border: none;
+    border-radius: 3px;
+}

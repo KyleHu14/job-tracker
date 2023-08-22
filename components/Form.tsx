@@ -21,7 +21,7 @@ export default function Form() {
 		company: "",
 	  });
 
-	const updateFormData = ( field: keyof typeof formData, value: string) => {
+	const updateFormData = (field: keyof typeof formData, value: string) => {
 		setFormData((formData) => ({
 			...formData,
 			[field]: value,
@@ -52,17 +52,26 @@ export default function Form() {
 				<input 
 					className={s.formInput} 
 					placeholder="Irvine, California"
+					onChange={(e) => updateFormData("location",e.target.value)}
 				></input>
 			</div>
 
 			<div>
 				<div>Company</div>
-				<input className={s.formInput} placeholder="Amazon"></input>
+				<input 
+					className={s.formInput} 
+					placeholder="Amazon"
+					onChange={(e) => updateFormData("company",e.target.value)}
+				></input>
 			</div>
 
 			<div>
 				<div>Date</div>
-				<input className={s.formInput} placeholder="8/2/2023"></input>
+				<input 
+					className={s.formInput} 
+					placeholder="8/2/2023"
+					onChange={(e) => updateFormData("startDate", e.target.value)}
+				></input>
 			</div>
 
 			<div>

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 // Components
 import Form from "../components/Form"
+import Display from "@/components/Display";
 
 export default function Home() {
 	// [Auth]
@@ -34,7 +35,11 @@ export default function Home() {
 					<>{homePageText}</>
 				):
 				(
-					<Form />
+					<>
+						<Form />
+						<Display />
+					</>
+					
 				)}
 			</div>
 		</>

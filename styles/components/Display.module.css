@@ -1,0 +1,23 @@
+.appContainer{
+    /* Border */
+    border: 1px solid #006D77;
+
+    /* Flexbox */
+    display: flex;
+    column-gap: 1rem;
+    align-items: center;
+
+    /* Margins */
+    margin-left: 15rem;
+    margin-right: 15rem;
+    margin-top: 5rem;
+
+    /* Padding */
+    padding-top:1rem;
+    padding-bottom:1rem;
+    padding-left:0.5rem;
+    padding-right:0.5rem;
+
+    /* Font Size */
+    font-size: 20px;
+}

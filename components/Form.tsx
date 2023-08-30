@@ -4,6 +4,9 @@ import s from "@/styles/components/Form.module.css";
 
 import { useState, ChangeEvent } from "react";
 
+// supabase function
+import { createApp } from "@/supabase/supabase";
+
 // React-select formatting options
 const optionList = [
 	{ value: "pending", label: "Pending" },
@@ -21,6 +24,7 @@ export default function Form() {
 		company: "",
 	  });
 
+	//   A function that sets the correct attribute of the formData useState
 	const updateFormData = (field: keyof typeof formData, value: string) => {
 		setFormData((formData) => ({
 			...formData,
@@ -28,14 +32,29 @@ export default function Form() {
 		}));
 	};
 
+	// Updates the status, we use a separate function since we need to check if status is a value or not
 	const updateStatus = (newStatusObject: any) => {
 		if (newStatusObject) {
 			updateFormData("status", newStatusObject.value);
 		}
 	};
 
+	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		createApp(formData);
+
+		// On submission, reset the form
+		setFormData({
+			status: "",
+			startDate: "",
+			jobTitle: "",
+			location: "",
+			company: "",
+		})
+	}
+
 	return (
-		<form className={s.form}>
+		<form className={s.form} onSubmit={handleFormSubmit}>
 			<div className={s.title}>New Job Application</div>
 
 			<div>
@@ -93,7 +112,7 @@ export default function Form() {
 				/>
 			</div>
 
-			<button className={s.createBtn} type="button">Add Application</button>
+			<button className={s.createBtn} type="submit">Add Application</button>
 		</form>
 	);
 }

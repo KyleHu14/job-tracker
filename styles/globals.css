@@ -1,3 +1,7 @@
 body{
+  /* Margins */
   margin: 0;
+
+  /* Padding */
+  padding-bottom: 3rem;
 }

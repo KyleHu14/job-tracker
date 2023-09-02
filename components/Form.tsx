@@ -1,11 +1,17 @@
-import Select from "react-select";
-
+// CSS
 import s from "@/styles/components/Form.module.css";
 
-import { useState, ChangeEvent } from "react";
+// React
+import { useState } from "react";
+
+// Router
+import { useRouter } from 'next/router'
 
 // supabase function
 import { createApp } from "@/supabase/supabase";
+
+// React-select
+import Select from "react-select";
 
 // React-select formatting options
 const optionList = [
@@ -14,7 +20,15 @@ const optionList = [
 	{ value: "accepted", label: "Accepted" },
 ];
 
-export default function Form() {
+// Interface for Form props
+interface FormProps {
+	email: string
+}
+
+export default function Form({ email } : FormProps) {
+	// Next Router
+	const router = useRouter();
+
 	// Form input use states
 	const [formData, setFormData] = useState({
 		status: "",
@@ -22,7 +36,8 @@ export default function Form() {
 		jobTitle: "",
 		location: "",
 		company: "",
-	  });
+		email: email,
+	});
 
 	//   A function that sets the correct attribute of the formData useState
 	const updateFormData = (field: keyof typeof formData, value: string) => {
@@ -39,6 +54,11 @@ export default function Form() {
 		}
 	};
 
+	// Refreshes page and calls the SSR function of index.tsx
+	const refreshData = () => {
+		router.replace(router.asPath);
+	}
+
 	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		createApp(formData);
@@ -50,7 +70,10 @@ export default function Form() {
 			jobTitle: "",
 			location: "",
 			company: "",
+			email: email
 		})
+
+		refreshData();
 	}
 
 	return (

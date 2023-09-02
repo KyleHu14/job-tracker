@@ -21,10 +21,11 @@ const supabase = createClient(
 // [Supabase Functions]
 
 // Fetches all applications in the database
-export const fetchApps = async () => {
+export const fetchApps = async (email) => {
     let { data: job_apps, error } = await supabase
     .from('job_apps')
     .select('*')
+    .eq('user_email', email)
 
     if(error){
         return []
@@ -42,6 +43,7 @@ export const fetchApps = async () => {
 		jobTitle: "",
 		location: "",
 		company: "",
+        email: session.user.email
     }
 */
 export const createApp = async (newAppData) => {
@@ -53,7 +55,8 @@ export const createApp = async (newAppData) => {
             company_name : newAppData.company,
             location: newAppData.location,
             status: newAppData.status,
-            date: newAppData.startDate
+            date: newAppData.startDate,
+            user_email: newAppData.email
         },
     ])
 }

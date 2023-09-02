@@ -1,8 +1,8 @@
 import s from '@/styles/components/LoginBtn.module.css'
-import { useSession, signIn, signOut } from "next-auth/react"
+import { signIn, signOut } from "next-auth/react"
 
-export default function Component() {
-  const { data: session } = useSession()
+export default function Component({session} : any) {
+
   if (session && session.user) {
     return (
       <div style={{display: "flex", alignItems: "center", columnGap: "1rem" }}>

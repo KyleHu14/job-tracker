@@ -1,5 +1,8 @@
+// Next component
 import Head from 'next/head'
+import { GetServerSidePropsContext } from 'next';
 
+// React
 import { useEffect, useState } from "react";
 
 // Components
@@ -12,6 +15,8 @@ import { fetchApps } from "@/supabase/supabase"
 
 // NextAuth
 import { useSession } from "next-auth/react"
+import { authOptions } from '@/pages/api/auth/[...nextauth]'
+import { getServerSession } from "next-auth/next"
 
 // Interface that is used for the server side rendered data
 interface indexProps{
@@ -22,52 +27,46 @@ interface indexProps{
 		location: string,
 		status: string,
 		date: string
-	}[],
+	}[]
 }
 
-export default function Home({ data} : indexProps) {
-	// [Auth]
-	const { data: session, status } = useSession()
+export default function Home({data} : indexProps) {
+	// [NextAuth]
+	const { data: session } = useSession()
 
 	// [Use States]
 	const [homePageText, setHomeText] = useState("Login to start tracking!")
-	
-	// [Use Effect]
-	useEffect(() => {
-		if (status === "loading") {
-			setHomeText("Loading....");
-		} else {
-			setHomeText("Login to start tracking!");
-		}
-  	}, [status]);
-
 
 	return (
 		<>
 			<Head>
 				<title>JobTracker</title>
 			</Head>
-			<Navbar />
+			<Navbar session={session}/>
 			<div>	
 				{!session ? (
 					<>{homePageText}</>
 				):
 				(
 					<>
-						<Form />
+						<Form email={session.user?.email ?? ""}/>
 						<Display data={data} />
 					</>
-					
 				)}
 			</div>
 		</>
 	);
 }
 
-export async function getServerSideProps(){
-	const data = await fetchApps()
+export async function getServerSideProps(context: GetServerSidePropsContext){
+	const session = await getServerSession(context.req, context.res, authOptions)
 
-	if(data){
-		return { props : {data} }
+	const data = await fetchApps(session?.user?.email)
+
+	return {
+		props: {
+			data,
+		  	session,
+		},
 	}
 }

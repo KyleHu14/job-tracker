@@ -31,6 +31,8 @@ export const fetchApps = async (email) => {
         return []
     }
 
+    // Debugging 
+    return []
     return job_apps
 }
 

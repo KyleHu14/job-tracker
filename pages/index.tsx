@@ -44,12 +44,12 @@ export default function Home({data} : indexProps) {
 			</Head>
 			<Navbar session={session}/>
 			<div>	
-				{!session ? (
+				{!session || !session.user ? (
 					<>{homePageText}</>
 				):
 				(
 					<>
-						<Form email={session.user?.email ?? ""}/>
+						<Form email={session.user.email ?? ""}/>
 						<Display data={data} />
 					</>
 				)}

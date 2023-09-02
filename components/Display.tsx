@@ -1,7 +1,13 @@
+// Components
+import ErrorMessage from "./ErrorMessage";
+
+// Styles
 import s from "@/styles/components/Display.module.css";
 
+// Next Components
 import Image from "next/image";
 
+// Interfaces
 interface JobAppProps {
 	status: string;
 	startDate: string;
@@ -47,20 +53,27 @@ export default function Display({data} : displayProps) {
 		);
 	}
 
-	return (
-		<>
-			{data.map((jobApp) => (
-				<div key={jobApp.id}>
-					<JobApp
-						status={jobApp.status}
-						startDate={jobApp.date}
-						jobTitle={jobApp.title}
-						location={jobApp.location}
-						company={jobApp.company_name}
-					/>
-				</div>
-			))}
-		</>
-	);
+	if (data.length > 0){
+		return (
+			<>
+				{data.map((jobApp) => (
+					<div key={jobApp.id}>
+						<JobApp
+							status={jobApp.status}
+							startDate={jobApp.date}
+							jobTitle={jobApp.title}
+							location={jobApp.location}
+							company={jobApp.company_name}
+						/>
+					</div>
+				))}
+			</>
+		);
+	} else {
+		return (
+			<ErrorMessage />
+		) 
+	}
+	
 }
 

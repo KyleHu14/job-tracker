@@ -1,7 +1,7 @@
 import s from '@/styles/components/LoginBtn.module.css'
 import { signIn, signOut } from "next-auth/react"
 
-export default function Component({session} : any) {
+export default function LoginBtn({session} : any) {
 
   if (session && session.user) {
     return (

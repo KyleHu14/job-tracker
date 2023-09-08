@@ -29,7 +29,7 @@ export default function Form({ email } : FormProps) {
 	// Next Router
 	const router = useRouter();
 
-	// Form input use states
+	// Use states
 	const [formData, setFormData] = useState({
 		status: "",
 		startDate: "",
@@ -38,6 +38,11 @@ export default function Form({ email } : FormProps) {
 		company: "",
 		email: email,
 	});
+
+	const [dateErrMsg, setDateErrMsg] = useState(false)
+	const [showGeneralErrMsg, setShowGeneralErrMsg] = useState(false)
+	const [generalErrMsg, setGeneralErrMsg] = useState("")
+
 
 	//   A function that sets the correct attribute of the formData useState
 	const updateFormData = (field: keyof typeof formData, value: string) => {
@@ -54,13 +59,56 @@ export default function Form({ email } : FormProps) {
 		}
 	};
 
-	// Refreshes page and calls the SSR function of index.tsx
-	const refreshData = () => {
-		router.replace(router.asPath);
+	// Validates if a string fits the format MM/DD/YYYY
+	const validateDate = (dateStr: string): boolean => {
+		const date = new Date(dateStr)
+		return !isNaN(date.getTime());
 	}
 
+	// Validates entire form's contents
+	const checkForm = (formInfo: any) => {
+		let formStatus = true
+
+		// 1. First check if there are any blank values
+		for(let key in formInfo){
+			if(formInfo[key] == ""){
+				setShowGeneralErrMsg(true)
+				setGeneralErrMsg("One or more fields are empty.")
+				formStatus = false
+			}
+		}
+
+		// 2. Check if the date is valid or not
+		if(!validateDate(formData.startDate)){
+			setDateErrMsg(true)
+			formStatus = false
+		}
+		
+		// 3. Check if the email field exists
+		if(email === ""){
+			setGeneralErrMsg("We are unable to detect you are logged in. Please try refreshing the page.")
+			formStatus = false
+		}
+
+		return formStatus
+	}
+
+	// Function that handles the submission of a form
+	// Creates an application in supabase and refreshes the page 
+	// By refreshing the page, we invoke getServerSideProps and refresh the data
 	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+
+		// If the form data fails (returns false), then we return early on and don't create a new task
+		if(!checkForm(formData)){
+			return false
+		}
+
+		// If we are here, we can remove the error message since it passed our check
+		setDateErrMsg(false)
+		setShowGeneralErrMsg(false)
+
+		// Create the data in the supabase database
 		createApp(formData);
 
 		// On submission, reset the form
@@ -73,52 +121,59 @@ export default function Form({ email } : FormProps) {
 			email: email
 		})
 
-		refreshData();
+		// Refreshes the page and therefore calls the getServerSideProps function
+		router.replace(router.asPath);
 	}
 
 	return (
-		<form className={s.form} onSubmit={handleFormSubmit}>
+		<form className={s.form}  onSubmit={handleFormSubmit}>
 			<div className={s.title}>New Job Application</div>
 
-			<div>
+			<div className={s.inputContainer}>
 				<div>Job Title</div>
 				<input 
+					value={formData.jobTitle}
 					className={s.formInput} 
 					placeholder="Junior Developer" 
 					onChange={(e) => updateFormData("jobTitle", e.target.value)}
 				></input>
 			</div>
 
-			<div>
+			<div className={s.inputContainer}>
 				<div>Location</div>
 				<input 
+					value={formData.location}
 					className={s.formInput} 
 					placeholder="Irvine, California"
 					onChange={(e) => updateFormData("location",e.target.value)}
 				></input>
 			</div>
 
-			<div>
+			<div className={s.inputContainer}>
 				<div>Company</div>
 				<input 
+					value={formData.company}
 					className={s.formInput} 
 					placeholder="Amazon"
 					onChange={(e) => updateFormData("company",e.target.value)}
 				></input>
 			</div>
 
-			<div>
+			<div className={s.inputContainer}>
 				<div>Date</div>
 				<input 
+					value={formData.startDate}
 					className={s.formInput} 
 					placeholder="8/2/2023"
 					onChange={(e) => updateFormData("startDate", e.target.value)}
 				></input>
+				{dateErrMsg && <div className={s.errorMsg}>Date is invalid</div>}
 			</div>
 
-			<div>
+			<div className={s.inputContainer}>
 				<div>Status</div>
 				<Select
+					instanceId={"StatusSelector"}
 					options={optionList}
 					onChange={(newStatus) => updateStatus(newStatus)}
 					placeholder="Select status"
@@ -134,6 +189,8 @@ export default function Form({ email } : FormProps) {
 					}}
 				/>
 			</div>
+
+			{showGeneralErrMsg && (<div className={s.errorMsg}>{generalErrMsg}</div>)}
 
 			<button className={s.createBtn} type="submit">Add Application</button>
 		</form>

@@ -43,4 +43,22 @@
 
     border: none;
     border-radius: 3px;
+
+    transition: background-color 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+
+.createBtn:hover {
+    background-color: #005da4;
+    /* transform: translateY(2px); */
+}
+
+.inputContainer{
+    margin-top: 1rem;
+}
+
+.errorMsg{
+    margin-top: 0.3rem;
+    font-size: 15px;
+    color: red;
 }

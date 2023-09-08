@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import Form from "../components/Form"
 import Display from "@/components/Display";
 import Navbar from "@/components/Navbar";
+import LoginBtn from "@/components/LoginBtn"
 
 // Supabase import
 import { fetchApps } from "@/supabase/supabase"
@@ -17,6 +18,9 @@ import { fetchApps } from "@/supabase/supabase"
 import { useSession } from "next-auth/react"
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
+
+// CSS
+import s from "@/styles/pages/Index.module.css";
 
 // Interface that is used for the server side rendered data
 interface indexProps{
@@ -34,9 +38,6 @@ export default function Home({data} : indexProps) {
 	// [NextAuth]
 	const { data: session } = useSession()
 
-	// [Use States]
-	const [homePageText, setHomeText] = useState("Login to start tracking!")
-
 	return (
 		<>
 			<Head>
@@ -45,7 +46,14 @@ export default function Home({data} : indexProps) {
 			<Navbar session={session}/>
 			<div>	
 				{!session || !session.user ? (
-					<>{homePageText}</>
+					<>
+						<div className={s.homeContainer}>
+							<div className={s.title}>Organize your Job Applications</div>
+							<div className={s.subTitle}>Manage and organize your job hunt all in one place.</div>
+							<LoginBtn session={session}/>
+						</div>
+						
+					</>
 				):
 				(
 					<>

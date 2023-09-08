@@ -32,7 +32,7 @@ export const fetchApps = async (email) => {
     }
 
     // Debugging 
-    return []
+    // return []
     return job_apps
 }
 

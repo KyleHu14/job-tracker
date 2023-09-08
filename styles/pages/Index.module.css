@@ -1,0 +1,28 @@
+.homeContainer{
+    /* Flex Box */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* Margins */
+    margin-top: 6rem;
+}
+
+.title{
+    font-size: 30px;
+    font-weight:600
+}
+
+.subTitle{
+    /* Margins */
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+
+    /*  Font Adjustments */
+    text-align: center;
+    font-size: 23px;
+    color: #393939;
+
+    /* Width */
+    width: 24%;
+}

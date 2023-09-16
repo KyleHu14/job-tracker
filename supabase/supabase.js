@@ -28,7 +28,7 @@ export const fetchApps = async (email) => {
     .eq('user_email', email)
 
     if(error){
-        return []
+        return null
     }
 
     // Debugging 
@@ -49,6 +49,7 @@ export const fetchApps = async (email) => {
     }
 */
 export const createApp = async (newAppData) => {
+    // Create an app through supabase
     const { data, error } = await supabase
     .from('job_apps')
     .insert([
@@ -61,4 +62,28 @@ export const createApp = async (newAppData) => {
             user_email: newAppData.email
         },
     ])
+    
+    // Detect if there are any errors
+    if (error) {
+        console.error(`Error deleting application`, error)
+        return error
+    }
+}
+
+export const delApp = async (appId) => {
+    // Delete the task
+    const { error } = await supabase
+    .from('job_apps')
+    .delete()
+    .eq('id', appId)
+
+    // If there is an error, throw an error
+    if (error) {
+        console.error(`Error deleting application`, error)
+        return error
+    } 
+    // Else true is only here in case I want to verify it was a successful operation
+    // else {
+    //     return true
+    // }
 }

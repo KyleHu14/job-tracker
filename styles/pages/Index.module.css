@@ -26,3 +26,51 @@
     /* Width */
     width: 24%;
 }
+
+.stats{
+    display: flex;
+    column-gap: 1rem;
+
+    font-size: 20px;
+}
+
+.accept{
+    color: #009A0F;
+}
+
+.reject{
+    color : #D50000;
+}
+
+.pending{
+    color : #e09100;
+}
+
+.createAppBtn{
+    font-size: 18px;
+    color: white;
+    
+    border: none;
+    border-radius: 10px;
+
+    background-color:#00A5C9;
+
+    padding: 0.3rem 1.3rem;
+    margin-top: 1rem;
+
+    cursor: pointer;
+}
+
+.titleContainer{
+    text-align: left;
+    font-size: 30px;
+    font-weight: 600;
+
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.mainContainer{
+    margin-left: 20rem;
+    margin-right: 20rem;
+}

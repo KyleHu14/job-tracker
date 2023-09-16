@@ -56,10 +56,20 @@ export default function Home({data} : indexProps) {
 					</>
 				):
 				(
-					<>
-						<Form email={session.user.email ?? ""}/>
+					<div className={s.mainContainer}>
+						{/* <Form email={session.user.email ?? ""}/> */}
+						<>
+							<div className={s.titleContainer}>Your Progress</div>
+							<div className={s.stats}>
+								<div><span className={s.accept}>Accepted</span> : {20}</div>
+								<div><span className={s.reject}>Rejected</span> : {80}</div>
+								<div><span className={s.pending}>Pending</span> : {100}</div>
+							</div>
+							
+							<button className={s.createAppBtn}>+ Application</button>
+						</>
 						<Display data={data} />
-					</>
+					</div>
 				)}
 			</div>
 		</>

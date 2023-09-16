@@ -96,7 +96,7 @@ export default function Form({ email } : FormProps) {
 	// Function that handles the submission of a form
 	// Creates an application in supabase and refreshes the page 
 	// By refreshing the page, we invoke getServerSideProps and refresh the data
-	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
 		// If the form data fails (returns false), then we return early on and don't create a new task
@@ -109,7 +109,16 @@ export default function Form({ email } : FormProps) {
 		setShowGeneralErrMsg(false)
 
 		// Create the data in the supabase database
-		createApp(formData);
+
+		let createError = await createApp(formData);
+		
+		if (createError) {
+			console.error('Error creating application', createError)
+			setGeneralErrMsg("An error occured when creating a new application. Please try again later.")
+			setShowGeneralErrMsg(true)
+			return false
+		}
+		
 
 		// On submission, reset the form
 		setFormData({

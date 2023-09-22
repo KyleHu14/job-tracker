@@ -12,7 +12,7 @@ import Navbar from "@/components/Navbar";
 import LoginBtn from "@/components/LoginBtn"
 
 // Supabase import
-import { fetchApps } from "@/supabase/supabase"
+import { fetchApps, fetchStats } from "@/supabase/supabase"
 
 // NextAuth
 import { useSession } from "next-auth/react"
@@ -24,7 +24,7 @@ import s from "@/styles/pages/Index.module.css";
 
 // Interface that is used for the server side rendered data
 interface indexProps{
-	data : {
+	userApplications : {
 		id: number,
 		title: string,
 		company_name: string,
@@ -32,9 +32,17 @@ interface indexProps{
 		status: string,
 		date: string
 	}[]
+	userStats : {
+		id: number,
+		email: string,
+		total_apps: string,
+		rejected_apps: string,
+		pending_apps: string,
+		accepted_apps: string
+	}[]
 }
 
-export default function Home({data} : indexProps) {
+export default function Home({userApplications, userStats} : indexProps) {
 	// [NextAuth]
 	const { data: session } = useSession()
 
@@ -62,15 +70,16 @@ export default function Home({data} : indexProps) {
 						<>
 							<div className={s.titleContainer}>Your Progress</div>
 							<div className={s.stats}>
-								<div><span className={s.accept}>Accepted</span> : {20}</div>
-								<div><span className={s.reject}>Rejected</span> : {80}</div>
-								<div><span className={s.pending}>Pending</span> : {100}</div>
+								<div><span className={s.accept}>Accepted✅</span> : {userStats[0].accepted_apps}</div>
+								<div><span className={s.reject}>Rejected❌</span> : {userStats[0].rejected_apps}</div>
+								<div><span className={s.pending}>Pending</span> : {userStats[0].pending_apps}</div>
+								<div><span className={s.pending}>Total</span> : {userStats[0].total_apps}</div>
 							</div>
 							
 							<button className={s.createAppBtn} onClick={() => setIsCreateModalOpen(true)}>+ Application</button>
 						</>
 						<CreateModal email={session.user.email ?? ""} isOpen={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)}/>
-						<Display data={data} />
+						<Display data={userApplications} />
 					</div>
 				)}
 			</div>
@@ -81,11 +90,14 @@ export default function Home({data} : indexProps) {
 export async function getServerSideProps(context: GetServerSidePropsContext){
 	const session = await getServerSession(context.req, context.res, authOptions)
 
-	const data = await fetchApps(session?.user?.email)
+	const userApplications = await fetchApps(session?.user?.email)
+
+	let userStats = await fetchStats(session?.user?.email)
 
 	return {
 		props: {
-			data,
+			userApplications,
+			userStats,
 		  	session,
 		},
 	}

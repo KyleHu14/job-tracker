@@ -41,8 +41,8 @@ export const fetchApps = async (email) => {
 export const fetchStats = async (email) => {
     let { data: userStats, error } = await supabase
     .from('users')
+    .select()
     .eq('email', email)
-    .select('*')
 
     return userStats
 }
@@ -62,7 +62,7 @@ export const fetchStats = async (email) => {
 */
 export const createApp = async (newAppData) => {
     // Create an app through supabase
-    const { data, error } = await supabase
+    const { newApp, newAppError } = await supabase
     .from('job_apps')
     .insert([
         { 
@@ -74,10 +74,16 @@ export const createApp = async (newAppData) => {
             user_email: newAppData.email
         },
     ])
-    
+
+    // This makes use of supabase functions, its pretty cool
+    // Learned it through this link : https://github.com/orgs/supabase/discussions/909
+    const { incrementRes, incrementError } = await supabase 
+        .rpc('increment_total_apps', {useremail : newAppData.email})
+
+
     // Detect if there are any errors
-    if (error) {
-        console.error(`Error deleting application`, error)
+    if (newAppError) {
+        console.error(`Error creating application`, error)
         return error
     }
 }

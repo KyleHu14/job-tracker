@@ -35,15 +35,15 @@
 }
 
 .accept{
-    color: #009A0F;
+    /* color: #009A0F; */
 }
 
 .reject{
-    color : #D50000;
+    /* color : #D50000; */
 }
 
 .pending{
-    color : #e09100;
+    /* color : #e09100; */
 }
 
 .createAppBtn{

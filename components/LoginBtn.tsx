@@ -3,6 +3,8 @@ import { signIn, signOut } from "next-auth/react"
 
 export default function LoginBtn({session} : any) {
 
+  // Function that double checks if the user is registered in the DB or not
+
   if (session && session.user) {
     return (
       <div style={{display: "flex", alignItems: "center", columnGap: "1rem" }}>

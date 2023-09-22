@@ -106,10 +106,13 @@ export default function Display({data} : displayProps) {
 		);
 	} else if (data && data.length === 0){
 		return (
-			<div className={s.emptyMessage}>
-				<div className={s.emptyTitle}>Track your first job application!</div>
-				<div className={s.emptySubTitle}>Go ahead and track a new application using the form above!</div>
-			</div>
+			<>
+				<div className={s.titleContainer}>Your Applications</div>
+				<div className={s.emptyMessage}>
+					<div className={s.emptyTitle}>Track your first job application!</div>
+					<div className={s.emptySubTitle}>Go ahead and track a new application using the form above!</div>
+				</div>
+			</>
 		)
 	} else {
 		return (

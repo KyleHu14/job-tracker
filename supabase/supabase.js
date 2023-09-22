@@ -20,6 +20,7 @@ const supabase = createClient(
 
 // [Supabase Functions]
 
+// [Fetching]
 // Fetches all applications in the database
 export const fetchApps = async (email) => {
     let { data: job_apps, error } = await supabase
@@ -36,6 +37,17 @@ export const fetchApps = async (email) => {
     return job_apps
 }
 
+// Fetch the statistics(total_apps, rejected_apps, pending_apps, accepted_apps) of a user
+export const fetchStats = async (email) => {
+    let { data: userStats, error } = await supabase
+    .from('users')
+    .eq('email', email)
+    .select('*')
+
+    return userStats
+}
+
+// [Creating]
 /* 
     Creates a new application in supabase
     newAppData is an object that has the following format : 
@@ -70,6 +82,25 @@ export const createApp = async (newAppData) => {
     }
 }
 
+export const createUserInfo = async (email) => {
+    let { data: users, error } = await supabase
+        .from('users')
+        .select("*")
+        .eq('email', email)
+
+    // If there exists no row that contains the current user, then create a new record
+    if(users.length == 0){
+        const { data, error } = await supabase
+        .from('users')
+        .insert([
+            { email: email, total_apps: 0, rejected_apps: 0, pending_apps: 0, accepted_apps: 0 },
+        ]).select()
+    }
+
+    return true
+}
+
+// [Deleting]
 export const delApp = async (appId) => {
     // Delete the task
     const { error } = await supabase

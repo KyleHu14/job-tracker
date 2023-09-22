@@ -1,5 +1,5 @@
 // CSS
-import s from "@/styles/components/Form.module.css";
+import s from "@/styles/components/CreateModal.module.css";
 
 // React
 import { useState } from "react";
@@ -13,6 +13,9 @@ import { createApp } from "@/supabase/supabase";
 // React-select
 import Select from "react-select";
 
+// Modal
+import Modal from "@/components/Modal"
+
 // React-select formatting options
 const optionList = [
 	{ value: "pending", label: "Pending" },
@@ -22,10 +25,12 @@ const optionList = [
 
 // Interface for Form props
 interface FormProps {
-	email: string
+	email: string;
+	isOpen: boolean;
+ 	onClose: () => void;
 }
 
-export default function Form({ email } : FormProps) {
+export default function CreateModal({ email, isOpen, onClose } : FormProps) {
 	// Next Router
 	const router = useRouter();
 
@@ -119,7 +124,6 @@ export default function Form({ email } : FormProps) {
 			return false
 		}
 		
-
 		// On submission, reset the form
 		setFormData({
 			status: "",
@@ -135,73 +139,78 @@ export default function Form({ email } : FormProps) {
 	}
 
 	return (
-		<form className={s.form}  onSubmit={handleFormSubmit}>
-			<div className={s.title}>New Job Application</div>
+		<Modal isOpen={isOpen} onClose={onClose}>
+				<form className={s.form}  onSubmit={handleFormSubmit}>
+					<div className={s.title}>New Job Application</div>
 
-			<div className={s.inputContainer}>
-				<div>Job Title</div>
-				<input 
-					value={formData.jobTitle}
-					className={s.formInput} 
-					placeholder="Junior Developer" 
-					onChange={(e) => updateFormData("jobTitle", e.target.value)}
-				></input>
-			</div>
+					<div className={s.inputContainer}>
+						<div>Job Title</div>
+						<input 
+							value={formData.jobTitle}
+							className={s.formInput} 
+							placeholder="Junior Developer" 
+							onChange={(e) => updateFormData("jobTitle", e.target.value)}
+						></input>
+					</div>
 
-			<div className={s.inputContainer}>
-				<div>Location</div>
-				<input 
-					value={formData.location}
-					className={s.formInput} 
-					placeholder="Irvine, California"
-					onChange={(e) => updateFormData("location",e.target.value)}
-				></input>
-			</div>
+					<div className={s.inputContainer}>
+						<div>Location</div>
+						<input 
+							value={formData.location}
+							className={s.formInput} 
+							placeholder="Irvine, California"
+							onChange={(e) => updateFormData("location",e.target.value)}
+						></input>
+					</div>
 
-			<div className={s.inputContainer}>
-				<div>Company</div>
-				<input 
-					value={formData.company}
-					className={s.formInput} 
-					placeholder="Amazon"
-					onChange={(e) => updateFormData("company",e.target.value)}
-				></input>
-			</div>
+					<div className={s.inputContainer}>
+						<div>Company</div>
+						<input 
+							value={formData.company}
+							className={s.formInput} 
+							placeholder="Amazon"
+							onChange={(e) => updateFormData("company",e.target.value)}
+						></input>
+					</div>
 
-			<div className={s.inputContainer}>
-				<div>Date</div>
-				<input 
-					value={formData.startDate}
-					className={s.formInput} 
-					placeholder="8/2/2023"
-					onChange={(e) => updateFormData("startDate", e.target.value)}
-				></input>
-				{dateErrMsg && <div className={s.errorMsg}>Date is invalid</div>}
-			</div>
+					<div className={s.inputContainer}>
+						<div>Date</div>
+						<input 
+							value={formData.startDate}
+							className={s.formInput} 
+							placeholder="8/2/2023"
+							onChange={(e) => updateFormData("startDate", e.target.value)}
+						></input>
+						{dateErrMsg && <div className={s.errorMsg}>Date is invalid</div>}
+					</div>
 
-			<div className={s.inputContainer}>
-				<div>Status</div>
-				<Select
-					instanceId={"StatusSelector"}
-					options={optionList}
-					onChange={(newStatus) => updateStatus(newStatus)}
-					placeholder="Select status"
-					styles={{
-						control: (baseStyles, state) => ({
-							...baseStyles,
-							fontSize: "15px",
-						}),
-						menu: (base) => ({
-							...base,
-							fontSize: "15px",
-						}),
-					}}
-				/>
-			</div>
+					<div className={s.inputContainer}>
+						<div>Status</div>
+						<Select
+							instanceId={"StatusSelector"}
+							options={optionList}
+							onChange={(newStatus) => updateStatus(newStatus)}
+							placeholder="Select status"
+							styles={{
+								control: (baseStyles, state) => ({
+									...baseStyles,
+									fontSize: "15px",
+								}),
+								menu: (base) => ({
+									...base,
+									fontSize: "15px",
+								}),
+							}}
+						/>
+					</div>
 
-			{showGeneralErrMsg && (<div className={s.errorMsg}>{generalErrMsg}</div>)}
-
-			<button className={s.createBtn} type="submit">Add Application</button>
-		</form>
+					{showGeneralErrMsg && (<div className={s.errorMsg}>{generalErrMsg}</div>)}
+					<div className={s.buttonRow}>
+						<button className={s.createBtn} type="submit">Add Application</button>
+						<button className={s.closeBtn} onClick={() => onClose()}>Exit</button>
+					</div>
+					
+				</form>
+		</Modal>
 	);
 }

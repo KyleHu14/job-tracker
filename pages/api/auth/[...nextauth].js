@@ -1,6 +1,9 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google";
 
+// Supabase
+import { createUserInfo } from "@/supabase/supabase";
+
 export const authOptions = {
   secret: process.env.NEXT_AUTH_SECRET,
   // Configure one or more authentication providers
@@ -11,6 +14,12 @@ export const authOptions = {
     })
     // ...add more providers here
   ],
+  callbacks:{
+    async signIn({ user, account, profile, email, credentials }) {
+      let test = await createUserInfo(user.email)
+      return true
+    },
+  }
 }
 
 export default NextAuth(authOptions)                                                                                  

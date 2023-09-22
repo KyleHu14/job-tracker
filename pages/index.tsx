@@ -6,7 +6,7 @@ import { GetServerSidePropsContext } from 'next';
 import { useEffect, useState } from "react";
 
 // Components
-import Form from "../components/Form"
+import CreateModal from "../components/CreateModal"
 import Display from "@/components/Display";
 import Navbar from "@/components/Navbar";
 import LoginBtn from "@/components/LoginBtn"
@@ -38,6 +38,8 @@ export default function Home({data} : indexProps) {
 	// [NextAuth]
 	const { data: session } = useSession()
 
+	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+
 	return (
 		<>
 			<Head>
@@ -57,7 +59,6 @@ export default function Home({data} : indexProps) {
 				):
 				(
 					<div className={s.mainContainer}>
-						{/* <Form email={session.user.email ?? ""}/> */}
 						<>
 							<div className={s.titleContainer}>Your Progress</div>
 							<div className={s.stats}>
@@ -66,8 +67,9 @@ export default function Home({data} : indexProps) {
 								<div><span className={s.pending}>Pending</span> : {100}</div>
 							</div>
 							
-							<button className={s.createAppBtn}>+ Application</button>
+							<button className={s.createAppBtn} onClick={() => setIsCreateModalOpen(true)}>+ Application</button>
 						</>
+						<CreateModal email={session.user.email ?? ""} isOpen={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)}/>
 						<Display data={data} />
 					</div>
 				)}

@@ -61,7 +61,7 @@ export const fetchStats = async (email) => {
     }
 */
 export const createApp = async (newAppData) => {
-    // Create an app through supabase
+    // 1. Insert a new application into supabase
     const { newApp, newAppError } = await supabase
     .from('job_apps')
     .insert([
@@ -75,10 +75,22 @@ export const createApp = async (newAppData) => {
         },
     ])
 
-    // This makes use of supabase functions, its pretty cool
-    // Learned it through this link : https://github.com/orgs/supabase/discussions/909
+    /*  
+        This makes use of supabase functions, its pretty cool
+        Learned it through this link : https://github.com/orgs/supabase/discussions/909
+        We increment the total apps in the case we create a new app
+    */
+
+    /* 
+        2. Update the relevant user table
+        Increment the user's total apps counter & their status counter  
+        We do this by calling functions that are defined in Postgres
+    */ 
     const { incrementRes, incrementError } = await supabase 
         .rpc('increment_total_apps', {useremail : newAppData.email})
+
+    const { incrementStatusRes, incrementStatusError } = await supabase 
+        .rpc(`increment_${newAppData.status}_apps`, {useremail : newAppData.email})
 
 
     // Detect if there are any errors
@@ -107,12 +119,19 @@ export const createUserInfo = async (email) => {
 }
 
 // [Deleting]
-export const delApp = async (appId) => {
+export const delApp = async (appId, email, status) => {
     // Delete the task
     const { error } = await supabase
     .from('job_apps')
     .delete()
     .eq('id', appId)
+
+    // We decrement the total apps in the case we create a new app
+    const { decrementRes, decrementError } = await supabase 
+        .rpc('decrement_total_apps', {useremail : email})
+
+    const { decrementStatusRes, decrementStatusError } = await supabase 
+        .rpc(`decrement_${status}_apps`, {useremail : email})
 
     // If there is an error, throw an error
     if (error) {
@@ -123,4 +142,13 @@ export const delApp = async (appId) => {
     // else {
     //     return true
     // }
+}
+
+// [Updating]
+export const updateApp = async (appId, newTitle, newCompanyName, newLoc, newStatus, newDate) => {
+    const { data, error } = await supabase
+        .from('job_apps')
+        .update({ title: newTitle, company_name: newCompanyName, location: newLoc, status: newStatus, date: newDate })
+        .eq('id', appId)
+        .select()
 }

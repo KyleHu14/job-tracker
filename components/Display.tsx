@@ -11,15 +11,17 @@ import { useState } from "react";
 // Next Components
 import Image from "next/image";
 import { useRouter } from "next/router";
+import EditModal from "./modals/EditModal";
 
 // Interfaces
 interface JobAppProps {
-	id: number;
-	status: string;
-	startDate: string;
-	jobTitle: string;
-	location: string;
-	company: string;
+	id: number,
+	title: string,
+	company_name: string,
+	location: string,
+	status: string,
+	date: string,
+	user_email: string
 }
 
 interface displayProps{
@@ -29,7 +31,8 @@ interface displayProps{
 		company_name: string,
 		location: string,
 		status: string,
-		date: string
+		date: string,
+		user_email: string
 	}[];
 }
 
@@ -38,12 +41,17 @@ export default function Display({data} : displayProps) {
 	const router = useRouter();
 
 	const [showError, setShowError] = useState(false)
+	const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+	const [editData, setEditData] = useState(
+		{title: "", location: "", company_name: "", status : "", date : ""}
+	)
+	const [editJobId, setEditJobId] = useState(-1)
 
 	// Functions for delete & edit
-	const handleDel = async (appId: number) => {
+	const handleDel = async (appId: number, email: string, status: string) => {
 		// console.log(appId)
 		
-		let delErr = await delApp(appId)
+		let delErr = await delApp(appId, email, status)
 
 		if (delErr){
 			setShowError(true)
@@ -54,25 +62,30 @@ export default function Display({data} : displayProps) {
 		}
 	}
 
-	const handleEdit = () => {
+	const handleEdit = (appId: number, title: string, location: string, company_name: string, status: string, date: string) => {
+		// Display the edit modal
+		setIsEditModalOpen(true)
 
+		// Set the new id that will be passed into the modal
+		setEditJobId(appId)
+		setEditData({title: title, location: location, company_name: company_name, status : status, date : date})
 	}
 
 	// JobApp is just another component, it serves as a container that contains all job application info
 	function JobApp(props: JobAppProps) {
 		return (
 			<div className={s.appContainer}>
-				<div>{props.jobTitle}</div>
+				<div>{props.title}</div>
 				<div>{props.location}</div>
-				<div>{props.company}</div>
+				<div>{props.company_name}</div>
 				<div>{props.status}</div>
-				<div>{props.startDate}</div>
+				<div>{props.date}</div>
 
-				<button className={s.settingButton} onClick={() => handleDel(props.id)}>
+				<button className={s.settingButton} onClick={() => handleDel(props.id, props.user_email, props.status)}>
 					<Image src="/icons/delete.jpg" alt="trash can icon" width={30} height={30}/>
 				</button>
 
-				<button className={s.settingButton}>
+				<button className={s.settingButton} onClick={() => handleEdit(props.id, props.title, props.location, props.company_name, props.status, props.date)}>
 					<Image src="/icons/edit.jpg" alt="edit icon" width={30} height={30}/>
 				</button>
 
@@ -94,14 +107,16 @@ export default function Display({data} : displayProps) {
 							<JobApp
 								id={jobApp.id}
 								status={jobApp.status}
-								startDate={jobApp.date}
-								jobTitle={jobApp.title}
+								date={jobApp.date}
+								title={jobApp.title}
 								location={jobApp.location}
-								company={jobApp.company_name}
+								company_name={jobApp.company_name}
+								user_email={jobApp.user_email}
 							/>
 						</div>
 					))}
 				</>
+				<EditModal id={editJobId} isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} editData={editData}/>
 			</div>
 		);
 	} else if (data && data.length === 0){

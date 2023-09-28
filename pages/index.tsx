@@ -6,7 +6,7 @@ import { GetServerSidePropsContext } from 'next';
 import { useEffect, useState } from "react";
 
 // Components
-import CreateModal from "../components/CreateModal"
+import CreateModal from "../components/modals/CreateModal"
 import Display from "@/components/Display";
 import Navbar from "@/components/Navbar";
 import LoginBtn from "@/components/LoginBtn"
@@ -30,7 +30,8 @@ interface indexProps{
 		company_name: string,
 		location: string,
 		status: string,
-		date: string
+		date: string,
+		user_email: string
 	}[]
 	userStats : {
 		id: number,

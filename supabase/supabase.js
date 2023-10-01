@@ -1,6 +1,10 @@
 import { createClient } from '@supabase/supabase-js'
 
-// Initialize the keys from the env file
+/* 
+    INITIALIZE CLIENT
+    In this step, we will first initialize the supabase client
+    Initialize the keys from the env file
+*/ 
 const supabase_url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
 const supabase_anon_key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? ''
 
@@ -12,44 +16,58 @@ if (supabase_anon_key === ''){
     throw new Error("ENV ERROR : Supabase Anon key is null, check if the .env file is initialized correctly.")
 }
 
-// Create the supabase client, this will be used in creating our lib functions below
+// Create the supabase client
 const supabase = createClient(
     supabase_url,
     supabase_anon_key
 )
 
-// [Supabase Functions]
+// SUPABASE FUNCTIONS
 
-// [Fetching]
-// Fetches all applications in the database
+/* 
+    [Fetching]
+    Fetches all applications in the database
+*/
 export const fetchApps = async (email) => {
+    // 1. Make a call to supabase
     let { data: job_apps, error } = await supabase
-    .from('job_apps')
-    .select('*')
-    .eq('user_email', email)
+        .from('job_apps')
+        .select('*')
+        /* 
+            - We use email as an identifier since we are fetching ALL job apps that are pertaining to a user
+            - Every job app has an email field that serves as an identifier
+        */ 
+        .eq('user_email', email)
 
-    if(error){
+    // 2. If there is an error, return null because users may have just created their account and therefore have no applications
+    if (error) {
         return null
     }
 
-    // Debugging 
-    // return []
     return job_apps
 }
 
 // Fetch the statistics(total_apps, rejected_apps, pending_apps, accepted_apps) of a user
 export const fetchStats = async (email) => {
+    // 1. Make a call to supabase
     let { data: userStats, error } = await supabase
-    .from('users')
-    .select()
-    .eq('email', email)
+        .from('users')
+        // Selects either 0 or 1 rows
+        .select()
+        .eq('email', email)
+
+    // 2. If there is an error, we can return an empty array
+    //    We can return an empty array in this case since the array should always be populated
+    if (error) {
+        return []
+    }
 
     return userStats
 }
 
-// [Creating]
 /* 
-    Creates a new application in supabase
+    [Creating]
+    Creates a new row in the job_apps table
     newAppData is an object that has the following format : 
     {
         status: "",
@@ -61,7 +79,7 @@ export const fetchStats = async (email) => {
     }
 */
 export const createApp = async (newAppData) => {
-    // 1. Insert a new application into supabase
+    // 1. Make a call to supabase
     const { newApp, newAppError } = await supabase
     .from('job_apps')
     .insert([
@@ -100,13 +118,31 @@ export const createApp = async (newAppData) => {
     }
 }
 
+/* 
+    Creates a new row in the users table
+    newAppData is an object that has the following format : 
+    {
+        email: (user's email),
+		total_apps : 0,
+		rejected_apps : 0,
+		pending_apps : 0,
+		accepted_apps : 0,
+    }
+*/
 export const createUserInfo = async (email) => {
+    // 1. We need to first check if there exists a record in the users table
+    //    Each user can only have 1 record, since each user should only have 1 set of stats
     let { data: users, error } = await supabase
         .from('users')
         .select("*")
         .eq('email', email)
 
-    // If there exists no row that contains the current user, then create a new record
+    // 2. Error Check
+    if (error) {
+        return false
+    }
+
+    // 3. If there exists no row that contains the current user, then create a new record
     if(users.length == 0){
         const { data, error } = await supabase
         .from('users')
@@ -115,25 +151,28 @@ export const createUserInfo = async (email) => {
         ]).select()
     }
 
+    // 4. If all goes well, return true
     return true
 }
 
 // [Deleting]
+// Deletes a record from the job_apps table
 export const delApp = async (appId, email, status) => {
-    // Delete the task
+    // 1. First delete the row from the job_apps table by matching the ID
     const { error } = await supabase
-    .from('job_apps')
-    .delete()
-    .eq('id', appId)
+        .from('job_apps')
+        .delete()
+        .eq('id', appId)
 
-    // We decrement the total apps in the case we create a new app
+    // 2.  We decrement the total apps since we have just removed a row from job_apps
     const { decrementRes, decrementError } = await supabase 
         .rpc('decrement_total_apps', {useremail : email})
 
+    // 3. Also decrement the respective status counter, if we just deleted a pending job_app we also delete the respective counter
     const { decrementStatusRes, decrementStatusError } = await supabase 
         .rpc(`decrement_${status}_apps`, {useremail : email})
 
-    // If there is an error, throw an error
+    // 4. If there is an error, return an error
     if (error) {
         console.error(`Error deleting application`, error)
         return error
@@ -145,10 +184,17 @@ export const delApp = async (appId, email, status) => {
 }
 
 // [Updating]
+// Updates the details of a job app in the job_apps table
 export const updateApp = async (appId, newTitle, newCompanyName, newLoc, newStatus, newDate) => {
+    // 1. Updates the matching row in job_apps by matching it with the id
     const { data, error } = await supabase
         .from('job_apps')
         .update({ title: newTitle, company_name: newCompanyName, location: newLoc, status: newStatus, date: newDate })
         .eq('id', appId)
         .select()
+
+    // 2. Return false in the case of an error
+    if (error) {
+        return false
+    }
 }

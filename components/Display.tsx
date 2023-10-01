@@ -1,8 +1,11 @@
 // Components
 import ErrorMessage from "./ErrorMessage";
+import EditModal from "./modals/EditModal";
 
 // Styles
 import s from "@/styles/components/Display.module.css";
+
+// Supabase functions
 import { delApp } from "@/supabase/supabase";
 
 // React
@@ -11,9 +14,9 @@ import { useState } from "react";
 // Next Components
 import Image from "next/image";
 import { useRouter } from "next/router";
-import EditModal from "./modals/EditModal";
 
 // Interfaces
+// This serves as the interface for the props that is passed into the JobApp component
 interface JobAppProps {
 	id: number,
 	title: string,
@@ -24,6 +27,7 @@ interface JobAppProps {
 	user_email: string
 }
 
+// This serves as the interface for props of the actual display component
 interface displayProps{
 	data : {
 		id: number,
@@ -36,42 +40,47 @@ interface displayProps{
 	}[];
 }
 
-
 export default function Display({data} : displayProps) {
+	// Initialize next router, used for refreshing page
 	const router = useRouter();
 
+	// Initialize various useStates
 	const [showError, setShowError] = useState(false)
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-	const [editData, setEditData] = useState(
+	const [editJobId, setEditJobId] = useState(-1)
+	const [editData, setEditData] = useState (
 		{title: "", location: "", company_name: "", status : "", date : ""}
 	)
-	const [editJobId, setEditJobId] = useState(-1)
 
-	// Functions for delete & edit
+	// Function that handles deleting of a job app
 	const handleDel = async (appId: number, email: string, status: string) => {
-		// console.log(appId)
-		
+		// 1. First call the delete app function
 		let delErr = await delApp(appId, email, status)
 
+		// 2. If we get any errors, show the error
 		if (delErr){
 			setShowError(true)
 			console.log("Error", delErr)
-		} else {
+		} 
+		// 3. Otherwise, we can turn off the error and "refresh" the page w/ the router
+		else {
 			setShowError(false)
 			router.replace(router.asPath)
 		}
 	}
 
+	// Function that handles editing of a job app
 	const handleEdit = (appId: number, title: string, location: string, company_name: string, status: string, date: string) => {
-		// Display the edit modal
+		// 1. Display the edit modal
 		setIsEditModalOpen(true)
 
-		// Set the new id that will be passed into the modal
+		// 2. Set the new id that will be passed into the modal
 		setEditJobId(appId)
+		// 3. Also set the data of the currently being edited job app in the form
 		setEditData({title: title, location: location, company_name: company_name, status : status, date : date})
 	}
 
-	// JobApp is just another component, it serves as a container that contains all job application info
+	// JobApp serves as a container that displays all job application in a rectangle
 	function JobApp(props: JobAppProps) {
 		return (
 			<div className={s.appContainer}>
@@ -96,6 +105,7 @@ export default function Display({data} : displayProps) {
 		);
 	}
 
+	// 1. If there exists data, then display the component
 	if (data && data.length > 0){
 		return (
 			<div className={s.displayContainer}>
@@ -119,7 +129,9 @@ export default function Display({data} : displayProps) {
 				<EditModal id={editJobId} isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} editData={editData}/>
 			</div>
 		);
-	} else if (data && data.length === 0){
+	} 
+	// 2. If the data's length is 0, that means the user has no applications, display a message instead
+	else if (data && data.length === 0){
 		return (
 			<>
 				<div className={s.titleContainer}>Your Applications</div>
@@ -129,7 +141,9 @@ export default function Display({data} : displayProps) {
 				</div>
 			</>
 		)
-	} else {
+	} 
+	// 3. Otherwise, an error has occured, display error message
+	else {
 		return (
 			<ErrorMessage />
 		) 

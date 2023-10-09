@@ -31,7 +31,8 @@ interface indexProps{
 		location: string,
 		status: string,
 		date: string,
-		user_email: string
+		user_email: string,
+		link: string
 	}[]
 	userStats : {
 		id: number,

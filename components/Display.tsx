@@ -24,7 +24,8 @@ interface JobAppProps {
 	location: string,
 	status: string,
 	date: string,
-	user_email: string
+	user_email: string,
+	link: string
 }
 
 // This serves as the interface for props of the actual display component
@@ -36,7 +37,8 @@ interface displayProps{
 		location: string,
 		status: string,
 		date: string,
-		user_email: string
+		user_email: string,
+		link: string
 	}[];
 }
 
@@ -49,7 +51,7 @@ export default function Display({data} : displayProps) {
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false)
 	const [editJobId, setEditJobId] = useState(-1)
 	const [editData, setEditData] = useState (
-		{title: "", location: "", company_name: "", status : "", date : ""}
+		{title: "", location: "", company_name: "", status : "", date : "", link: ""}
 	)
 
 	// Function that handles deleting of a job app
@@ -60,7 +62,7 @@ export default function Display({data} : displayProps) {
 		// 2. If we get any errors, show the error
 		if (delErr){
 			setShowError(true)
-			console.log("Error", delErr)
+			console.error("Error", delErr)
 		} 
 		// 3. Otherwise, we can turn off the error and "refresh" the page w/ the router
 		else {
@@ -70,14 +72,18 @@ export default function Display({data} : displayProps) {
 	}
 
 	// Function that handles editing of a job app
-	const handleEdit = (appId: number, title: string, location: string, company_name: string, status: string, date: string) => {
+	const handleEdit = (appId: number, title: string, location: string, company_name: string, status: string, date: string, link: string) => {
 		// 1. Display the edit modal
 		setIsEditModalOpen(true)
 
 		// 2. Set the new id that will be passed into the modal
 		setEditJobId(appId)
 		// 3. Also set the data of the currently being edited job app in the form
-		setEditData({title: title, location: location, company_name: company_name, status : status, date : date})
+		setEditData({title: title, location: location, company_name: company_name, status : status, date : date, link: link})
+	}
+
+	const openLink = (link: string) => {
+		window.open(link, '_blank')
 	}
 
 	// JobApp serves as a container that displays all job application in a rectangle
@@ -94,13 +100,15 @@ export default function Display({data} : displayProps) {
 					<Image src="/icons/delete.jpg" alt="trash can icon" width={30} height={30}/>
 				</button>
 
-				<button className={s.settingButton} onClick={() => handleEdit(props.id, props.title, props.location, props.company_name, props.status, props.date)}>
+				<button className={s.settingButton} onClick={() => handleEdit(props.id, props.title, props.location, props.company_name, props.status, props.date, props.link)}>
 					<Image src="/icons/edit.jpg" alt="edit icon" width={30} height={30}/>
 				</button>
-
-				<button className={s.settingButton}>
-					<Image src="/icons/link.jpg" alt="link icon" width={30} height={30}/>
-				</button>
+				{ props.link && (
+					<button className={s.settingButton} onClick={() => openLink(props.link)}>
+						<Image src="/icons/link.jpg" alt="link icon" width={30} height={30}/>
+					</button>
+				)}
+				
 			</div>
 		);
 	}
@@ -124,6 +132,7 @@ export default function Display({data} : displayProps) {
 								location={jobApp.location}
 								company_name={jobApp.company_name}
 								user_email={jobApp.user_email}
+								link={jobApp.link}
 							/>
 						</div>
 					))}

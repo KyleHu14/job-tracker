@@ -23,7 +23,7 @@ const optionList = [
 	{ value: "accepted", label: "Accepted" },
 ];
 
-// Interface for Form props
+// Interface for the component's props
 interface FormProps {
 	email: string;
 	isOpen: boolean;
@@ -46,6 +46,7 @@ export default function CreateModal({ email, isOpen, onClose } : FormProps) {
 		jobTitle: "",
 		location: "",
 		company: "",
+		link: "",
 		email: email,
 	});
 
@@ -81,7 +82,7 @@ export default function CreateModal({ email, isOpen, onClose } : FormProps) {
 
 		// 1. First check if there are any blank values
 		for(let key in formInfo){
-			if(formInfo[key] == ""){
+			if(key !== "link" && formInfo[key] == ""){
 				setShowGeneralErrMsg(true)
 				setGeneralErrMsg("One or more fields are empty.")
 				formStatus = false
@@ -137,6 +138,7 @@ export default function CreateModal({ email, isOpen, onClose } : FormProps) {
 			jobTitle: "",
 			location: "",
 			company: "",
+			link: "",
 			email: email
 		})
 
@@ -188,6 +190,16 @@ export default function CreateModal({ email, isOpen, onClose } : FormProps) {
 							onChange={(e) => updateFormData("startDate", e.target.value)}
 						></input>
 						{dateErrMsg && <div className={s.errorMsg}>Date is invalid</div>}
+					</div>
+
+					<div className={s.inputContainer}>
+						<div>Link</div>
+						<input 
+							value={formData.link}
+							className={s.formInput} 
+							placeholder="https://link.com"
+							onChange={(e) => updateFormData("link", e.target.value)}
+						></input>
 					</div>
 
 					<div className={s.inputContainer}>

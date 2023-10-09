@@ -40,7 +40,8 @@ interface FormProps {
         location: string, 
         company_name: string, 
         status: string, 
-        date: string
+        date: string,
+		link: string
     }
 }
 
@@ -61,6 +62,7 @@ export default function EditModal({ id, isOpen, onClose, editData } : FormProps)
 		jobTitle: "",
 		location: "",
 		company: "",
+		link: ""
 	});
 
 	const [dateErrMsg, setDateErrMsg] = useState(false)
@@ -75,6 +77,7 @@ export default function EditModal({ id, isOpen, onClose, editData } : FormProps)
 		  jobTitle: editData.title,
 		  location: editData.location,
 		  company: editData.company_name,
+		  link: editData.link
 		});
 	}, [editData]); 
 
@@ -106,7 +109,7 @@ export default function EditModal({ id, isOpen, onClose, editData } : FormProps)
 
 		// 1. First check if there are any blank values
 		for(let key in formInfo){
-			if(formInfo[key] == ""){
+			if(key !== "link" && formInfo[key] == ""){
 				setShowGeneralErrMsg(true)
 				setGeneralErrMsg("One or more fields are empty.")
 				formStatus = false
@@ -138,7 +141,7 @@ export default function EditModal({ id, isOpen, onClose, editData } : FormProps)
 		setShowGeneralErrMsg(false)
 
 		// 3. Create the data in the supabase database
-		let updateError = await updateApp(id, formData.jobTitle, formData.company, formData.location, formData.status, formData.startDate);
+		let updateError = await updateApp(id, formData.jobTitle, formData.company, formData.location, formData.status, formData.startDate, formData.link);
 
 		// 4. If there is an error, do not continue with the rest of the function
 		if (updateError) {
@@ -154,6 +157,7 @@ export default function EditModal({ id, isOpen, onClose, editData } : FormProps)
 			jobTitle: "",
 			location: "",
 			company: "",
+			link: ""
 		})
 
 		// Refreshes the page and therefore calls the getServerSideProps function
@@ -205,6 +209,16 @@ export default function EditModal({ id, isOpen, onClose, editData } : FormProps)
 							onChange={(e) => updateFormData("startDate", e.target.value)}
 						></input>
 						{dateErrMsg && <div className={s.errorMsg}>Date is invalid</div>}
+					</div>
+
+					<div className={s.inputContainer}>
+						<div>Link</div>
+						<input 
+							value={formData.link}
+							className={s.formInput} 
+							placeholder="https://link.com"
+							onChange={(e) => updateFormData("link", e.target.value)}
+						></input>
 					</div>
 
 					<div className={s.inputContainer}>

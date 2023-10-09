@@ -89,7 +89,8 @@ export const createApp = async (newAppData) => {
             location: newAppData.location,
             status: newAppData.status,
             date: newAppData.startDate,
-            user_email: newAppData.email
+            user_email: newAppData.email,
+            link: newAppData.link
         },
     ])
 
@@ -185,11 +186,11 @@ export const delApp = async (appId, email, status) => {
 
 // [Updating]
 // Updates the details of a job app in the job_apps table
-export const updateApp = async (appId, newTitle, newCompanyName, newLoc, newStatus, newDate) => {
+export const updateApp = async (appId, newTitle, newCompanyName, newLoc, newStatus, newDate, link) => {
     // 1. Updates the matching row in job_apps by matching it with the id
     const { data, error } = await supabase
         .from('job_apps')
-        .update({ title: newTitle, company_name: newCompanyName, location: newLoc, status: newStatus, date: newDate })
+        .update({ title: newTitle, company_name: newCompanyName, location: newLoc, status: newStatus, date: newDate, link: link })
         .eq('id', appId)
         .select()
 

@@ -30,8 +30,13 @@ interface FormProps {
  	onClose: () => void;
 }
 
+/*
+	Props :
+	email -> Used for creation of a task, since a task is associated with a user's email
+	isOpen / onClose -> isOpen is passed into the modal component, whereas onClose is called to close the modal itself
+*/
 export default function CreateModal({ email, isOpen, onClose } : FormProps) {
-	// Next Router
+	// Initialize next router for refreshing a page
 	const router = useRouter();
 
 	// Use states
@@ -49,7 +54,7 @@ export default function CreateModal({ email, isOpen, onClose } : FormProps) {
 	const [generalErrMsg, setGeneralErrMsg] = useState("")
 
 
-	//   A function that sets the correct attribute of the formData useState
+	// A function that sets the correct attribute of the formData useState
 	const updateFormData = (field: keyof typeof formData, value: string) => {
 		setFormData((formData) => ({
 			...formData,
@@ -57,14 +62,14 @@ export default function CreateModal({ email, isOpen, onClose } : FormProps) {
 		}));
 	};
 
-	// Updates the status, we use a separate function since we need to check if status is a value or not
+	// Updates the status, we use a separate function since we need to check if status is null or not
 	const updateStatus = (newStatusObject: any) => {
 		if (newStatusObject) {
 			updateFormData("status", newStatusObject.value);
 		}
 	};
 
-	// Validates if a string fits the format MM/DD/YYYY
+	// Validates if a string fits the format MM/DD/YYYY, used in checkForm
 	const validateDate = (dateStr: string): boolean => {
 		const date = new Date(dateStr)
 		return !isNaN(date.getTime());
@@ -98,9 +103,11 @@ export default function CreateModal({ email, isOpen, onClose } : FormProps) {
 		return formStatus
 	}
 
-	// Function that handles the submission of a form
-	// Creates an application in supabase and refreshes the page 
-	// By refreshing the page, we invoke getServerSideProps and refresh the data
+	/* 
+		Function that handles the submission of a form
+	 	Creates an application in supabase and refreshes the page 
+	 	By refreshing the page, we invoke getServerSideProps and refresh the data
+	*/ 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
@@ -114,7 +121,6 @@ export default function CreateModal({ email, isOpen, onClose } : FormProps) {
 		setShowGeneralErrMsg(false)
 
 		// Create the data in the supabase database
-
 		let createError = await createApp(formData);
 		
 		if (createError) {

@@ -111,7 +111,9 @@ export default function Display({data} : displayProps) {
 			<div className={s.displayContainer}>
 				<>
 					<div className={s.titleContainer}>Your Applications</div>
-					{showError && (<div className={s.errorContainer}>An error occured with deleting an application. Try again later.</div>)}
+					{showError && (
+						<div className={s.errorContainer}>An error occured with deleting an application. Try again later.</div>
+					)}
 					{data.map((jobApp) => (
 						<div key={jobApp.id}>
 							<JobApp

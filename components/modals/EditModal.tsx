@@ -44,6 +44,12 @@ interface FormProps {
     }
 }
 
+/*
+	Props :
+	id -> This is used when editing a job application, its the only way to uniquely identify a job application
+	isOpen / onClose -> isOpen is passed into the modal component, whereas onClose is called to close the modal itself
+	editData -> This is the data that is currently being edited
+*/
 export default function EditModal({ id, isOpen, onClose, editData } : FormProps) {
 	// Next Router
 	const router = useRouter();
@@ -61,7 +67,7 @@ export default function EditModal({ id, isOpen, onClose, editData } : FormProps)
 	const [showGeneralErrMsg, setShowGeneralErrMsg] = useState(false)
 	const [generalErrMsg, setGeneralErrMsg] = useState("")
 
-	// Added the useEffect, this way formData will immediately change when editData has new values that are passed into the component
+	// UseEffect allows us to update formData upon any change detected in editData
 	useEffect(() => {
 		setFormData({
 		  status: editData.status,
@@ -70,9 +76,9 @@ export default function EditModal({ id, isOpen, onClose, editData } : FormProps)
 		  location: editData.location,
 		  company: editData.company_name,
 		});
-	}, [editData]); // Make sure editData is listed as a dependency
+	}, [editData]); 
 
-	//   A function that sets the correct attribute of the formData useState
+	// Given a single key and value, the function updates the formData use state
 	const updateFormData = (field: keyof typeof formData, value: string) => {
 		setFormData((formData) => ({
 			...formData,
@@ -80,7 +86,8 @@ export default function EditModal({ id, isOpen, onClose, editData } : FormProps)
 		}));
 	};
 
-	// Updates the status, we use a separate function since we need to check if status is a value or not
+	// We use a separate function for updating status
+	// We do this because you can't just pass in newStatusObject.value directly in the TSX for some reason..
 	const updateStatus = (newStatusObject: any) => {
 		if (newStatusObject) {
 			updateFormData("status", newStatusObject.value);
@@ -121,24 +128,24 @@ export default function EditModal({ id, isOpen, onClose, editData } : FormProps)
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
-		// If the form data fails (returns false), then we return early on and don't create a new task
+		// 1. Check form contents first, if there's a problem we don't want to run the rest of the function
 		if(!checkForm(formData)){
 			return false
 		}
 
-		// If we are here, we can remove the error message since it passed our check
+		// 2. If form contents are good, we can remove the error message since it passed our check
 		setDateErrMsg(false)
 		setShowGeneralErrMsg(false)
 
-		// Create the data in the supabase database
+		// 3. Create the data in the supabase database
 		let updateError = await updateApp(id, formData.jobTitle, formData.company, formData.location, formData.status, formData.startDate);
-		
-		// if (createError) {
-		// 	console.error('Error creating application', createError)
-		// 	setGeneralErrMsg("An error occured when creating a new application. Please try again later.")
-		// 	setShowGeneralErrMsg(true)
-		// 	return false
-		// }
+
+		// 4. If there is an error, do not continue with the rest of the function
+		if (updateError) {
+			setGeneralErrMsg("An error occured when updating the application. Please try again later.")
+			setShowGeneralErrMsg(true)
+			return false
+		}
 		
 		// On submission, reset the form
 		setFormData({

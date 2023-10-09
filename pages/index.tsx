@@ -22,7 +22,7 @@ import { getServerSession } from "next-auth/next"
 // CSS
 import s from "@/styles/pages/Index.module.css";
 
-// Interface that is used for the server side rendered data
+// Interface for the props of the home function
 interface indexProps{
 	userApplications : {
 		id: number,
@@ -45,8 +45,10 @@ interface indexProps{
 
 export default function Home({userApplications, userStats} : indexProps) {
 	// [NextAuth]
+	// Get the session
 	const { data: session } = useSession()
 
+	// useState that controls if the create modal is open or not
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
 
 	return (

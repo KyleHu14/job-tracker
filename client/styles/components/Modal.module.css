@@ -1,0 +1,12 @@
+.modal{
+    position: fixed;
+    width: 100%;
+    height: 100%; /* Full height */
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+.modalChildren{
+    margin: 5rem 30rem;
+}

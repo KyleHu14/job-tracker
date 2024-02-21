@@ -1,0 +1,36 @@
+.loginBtn,
+.signupBtn {
+    font-size: 20px;
+
+    cursor: pointer;
+
+    /* Remove standard button styling */
+    border : none;
+    background: none;
+}
+
+.loginBtn {
+    /* Colors */
+    color: #404040;
+
+    /* Margins */
+    margin-right: 1.2rem;
+}
+
+.signupBtn{
+    /* Color */
+    color: white;
+    background-color: #006D77;
+
+    /* Padding */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+
+    /* Border */
+    border-radius: 10px;
+
+    /* Shadow */
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+}

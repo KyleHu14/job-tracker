@@ -1,21 +1,37 @@
-# Documentation
-## Introduction
+# Mantine Next.js template
 
-Job tracker is a web application that allows users to keep track of their job hunting process. Upon logging in, users can add their job applications which is displayed in a list format. 
+This is a template for [Next.js](https://nextjs.org/) app router + [Mantine](https://mantine.dev/).
+If you want to use pages router instead, see [next-pages-template](https://github.com/mantinedev/next-pages-template).
 
-## Project Structure
+## Features
 
-The project is comprised of : 
-1. NextJS as the front end framework
-2. Supabase as the backend 
-3. NextAuth for authentication
+This template comes with the following features:
 
-## File Structure
+- [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Storybook](https://storybook.js.org/)
+- [Jest](https://jestjs.io/) setup with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
+- ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
 
-1. **/er-diagrams :** Contains er-diagram files that can be opened in draw.io, the er-diagrams model the db structure in supabase
+## npm scripts
 
-2. **/styles :** All CSS files are located in the styles folder. CSS files for components are located in styles/components whereas CSS files for pages are located in styles/pages. 
+### Build and dev scripts
 
-3. **/supabase :** The supabase folder contains a file called supabase.js. Within the supabase file are asynchronous functions that mainly create, update, delete, and perform other operations on the database.  
+- `dev` – start dev server
+- `build` – bundle application for production
+- `analyze` – analyzes application bundle with [@next/bundle-analyzer](https://www.npmjs.com/package/@next/bundle-analyzer)
 
-## Database Structure
+### Testing scripts
+
+- `typecheck` – checks TypeScript types
+- `lint` – runs ESLint
+- `prettier:check` – checks files with Prettier
+- `jest` – runs jest tests
+- `jest:watch` – starts jest watch
+- `test` – runs `jest`, `prettier:check`, `lint` and `typecheck` scripts
+
+### Other scripts
+
+- `storybook` – starts storybook dev server
+- `storybook:build` – build production storybook bundle to `storybook-static`
+- `prettier:write` – formats all files with Prettier

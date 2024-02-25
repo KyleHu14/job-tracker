@@ -15,9 +15,9 @@ const LandingTitle = () => {
         >
           Job Tracker
         </Text>
-        <Title c="gray.8" fw="300" ta="center">
-          Manage all your job applications all in one place
-        </Title>
+      </Title>
+      <Title c="gray.8" fw="300" ta="center" visibleFrom="xs">
+        Manage all your job applications all in one place
       </Title>
       {/* Mobile Title */}
       <Title className={classes.smallTitle} ta="center" mt={100} hiddenFrom="xs">
@@ -30,9 +30,9 @@ const LandingTitle = () => {
         >
           Job Tracker
         </Text>
-        <Title c="gray.8" fw="300" ta="center" className={classes.smallSubTitle}>
-          Manage all your job applications all in one place
-        </Title>
+      </Title>
+      <Title c="gray.8" fw="300" ta="center" className={classes.smallSubTitle} hiddenFrom="xs">
+        Manage all your job applications all in one place
       </Title>
     </>
   );

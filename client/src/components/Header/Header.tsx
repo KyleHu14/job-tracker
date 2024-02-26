@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Container, Group, Burger, Title, Button } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { signIn, signOut, useSession } from 'next-auth/react';
 
+// NextJS
+import Link from 'next/link';
+
+// CSS
 import classes from './Header.module.css';
 
 export function Header() {
   const [opened, { toggle }] = useDisclosure(false);
-  const { data: session } = useSession();
 
   return (
     <header className={classes.header}>
@@ -16,9 +18,11 @@ export function Header() {
         <Title classNames={{ root: classes.titleRoot }} order={2} visibleFrom="xs">
           Job Tracker
         </Title>
-        <Button color="indigo.6" visibleFrom="xs" onClick={() => signIn()}>
-          Login
-        </Button>
+        <Link href="/dashboard/login">
+          <Button color="indigo.6" visibleFrom="xs">
+            Login
+          </Button>
+        </Link>
 
         {/* Mobile View */}
         <Title classNames={{ root: classes.titleRoot }} order={3} hiddenFrom="xs">

@@ -20,13 +20,14 @@
   },
   "dependencies": {
     "@mantine/core": "7.5.3",
+    "@mantine/form": "^7.6.0",
     "@mantine/hooks": "7.5.3",
     "@next/bundle-analyzer": "^14.0.1",
+    "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.39.7",
     "@tabler/icons-react": "^2.40.0",
     "install": "^0.13.0",
     "next": "14.0.1",
-    "next-auth": "^4.24.6",
     "npm": "^10.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -72,5 +73,8 @@
     "ts-jest": "^29.1.1",
     "typescript": "5.2.2"
   },
-  "packageManager": "yarn@4.0.1"
+  "packageManager": "yarn@4.0.1",
+  "prettier": {
+    "tabWidth": 4
+  }
 }

@@ -2,6 +2,11 @@ import '@mantine/core/styles.css';
 import React from 'react';
 import { MantineProvider, ColorSchemeScript, createTheme } from '@mantine/core';
 
+import { getServerSession } from 'next-auth';
+
+// Components
+import SessionProvider from '../components/SessionProvider/SessionProvider';
+
 export const metadata = {
   title: 'Job Tracker V2',
   description: 'I am using Mantine with Next.js!',
@@ -26,7 +31,9 @@ const theme = createTheme({
   },
 });
 
-export default function RootLayout({ children }: { children: any }) {
+export default async function RootLayout({ children }: { children: any }) {
+  const session = await getServerSession();
+
   return (
     <html lang="en">
       <head>
@@ -38,7 +45,9 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider theme={theme}>
+          <SessionProvider session={session}>{children}</SessionProvider>
+        </MantineProvider>
       </body>
     </html>
   );

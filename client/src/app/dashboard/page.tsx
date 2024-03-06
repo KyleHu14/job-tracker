@@ -1,7 +1,13 @@
-import React from 'react';
+"use client";
 
-const page = () => {
-  return <div>page</div>;
-};
+import { supabase } from "@/supabase/client";
 
-export default page;
+export default async function PrivatePage() {
+    const { data, error } = await supabase.auth.getUser();
+    if (error || !data?.user) {
+        console.log(error);
+        return <>no</>;
+    }
+
+    return <p>Hello {data.user.email}</p>;
+}

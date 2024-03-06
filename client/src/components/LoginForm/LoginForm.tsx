@@ -38,7 +38,7 @@ function LoginForm() {
                     Welcome to <Text span variant="gradient" gradient={{ from: 'indigo.4', to: 'violet' }}>JobTracker</Text> {type} with
                 </Text>
                 {/* prettier-ignore */}
-                <GoogleButton onClick={() => {console.log("Hello")}} radius="xl">Google</GoogleButton>
+                <GoogleButton radius="xl">Google</GoogleButton>
             </Paper>
         </Center>
     );

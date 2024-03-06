@@ -23,7 +23,6 @@
     "@mantine/form": "^7.6.0",
     "@mantine/hooks": "7.5.3",
     "@next/bundle-analyzer": "^14.0.1",
-    "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.39.7",
     "@tabler/icons-react": "^2.40.0",
     "install": "^0.13.0",

@@ -5,7 +5,7 @@ import { useForm } from "@mantine/form";
 import { Text, Paper, Center } from "@mantine/core";
 
 import classes from "./LoginForm.module.css";
-import { GoogleButton } from "../GoogleButton/GoogleButton";
+import { GoogleButton } from "./GoogleButton";
 
 function LoginForm() {
     const [type, toggle] = useToggle(["login", "register"]);

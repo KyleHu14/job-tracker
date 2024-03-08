@@ -1,13 +1,13 @@
-"use client";
+import { createClient } from "@/utils/supabase/server";
 
-import { supabase } from "@/supabase/client";
+export default async function Account() {
+    const supabase = createClient();
 
-export default async function PrivatePage() {
-    const { data, error } = await supabase.auth.getUser();
-    if (error || !data?.user) {
-        console.log(error);
-        return <>no</>;
-    }
+    const {
+        data: { user },
+    } = await supabase.auth.getUser();
 
-    return <p>Hello {data.user.email}</p>;
+    console.log(user);
+
+    return <>Hello {user?.email}</>;
 }

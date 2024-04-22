@@ -1,13 +1,31 @@
-import { createClient } from "@/utils/supabase/server";
+import { Payment, columns } from "./columns";
+import { DataTable } from "./data-table";
 
-export default async function Account() {
-    const supabase = createClient();
+async function getData(): Promise<Payment[]> {
+	// Fetch data from your API here.
+	return [
+		{
+			id: "728ed52f",
+			amount: 100,
+			status: "pending",
+			email: "m@example.com",
+		},
+		{
+			id: "489e1d42",
+			amount: 125,
+			status: "processing",
+			email: "example@gmail.com",
+		},
+		// ...
+	];
+}
 
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
+export default async function Dashboard() {
+	const data = await getData();
 
-    console.log(user);
-
-    return <>Hello {user?.email}</>;
+	return (
+		<div className="container mx-auto py-10">
+			<DataTable columns={columns} data={data} />
+		</div>
+	);
 }

@@ -25,3 +25,26 @@ export const columns: ColumnDef<Payment>[] = [
 		header: "Amount",
 	},
 ];
+
+export type JobApplication = {
+	id: string;
+	user_id: string;
+	title: string;
+	date_applied: Date;
+	application_status: string;
+};
+
+export const jobColumns: ColumnDef<JobApplication>[] = [
+	{
+		accessorKey: "title",
+		header: "Position Title",
+	},
+	{
+		accessorKey: "date_applied",
+		header: "Date Applied",
+	},
+	{
+		accessorKey: "application_status",
+		header: "Application Status",
+	},
+];

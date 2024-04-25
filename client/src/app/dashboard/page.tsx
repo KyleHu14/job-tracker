@@ -1,22 +1,22 @@
-import { Payment, columns } from "./columns";
+import { JobApplication, jobColumns } from "./columns";
 import { DataTable } from "./data-table";
 
-async function getData(): Promise<Payment[]> {
-	// Fetch data from your API here.
+async function getData(): Promise<JobApplication[]> {
 	return [
 		{
 			id: "728ed52f",
-			amount: 100,
-			status: "pending",
-			email: "m@example.com",
+			user_id: "1",
+			title: "Amazon Dishwasher",
+			date_applied: new Date("2024-04-1"),
+			application_status: "rejected",
 		},
 		{
 			id: "489e1d42",
-			amount: 125,
-			status: "processing",
-			email: "example@gmail.com",
+			user_id: "2",
+			title: "Google Food Technician",
+			date_applied: new Date("2024-04-10"),
+			application_status: "pending",
 		},
-		// ...
 	];
 }
 
@@ -25,7 +25,7 @@ export default async function Dashboard() {
 
 	return (
 		<div className="container mx-auto py-10">
-			<DataTable columns={columns} data={data} />
+			<DataTable columns={jobColumns} data={data} />
 		</div>
 	);
 }

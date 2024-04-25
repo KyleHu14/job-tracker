@@ -5,6 +5,7 @@ VALUES
   ('test@gmail.com', 'test2')
 
 -- 2. Insert job applications for test1 user
+--    Note that user_ids are randomly generated, I checked the database before writing the INSERT statements below
 INSERT INTO public.job_application(user_id, title, date_applied, application_status)
 VALUES
   ('6dc83955-6272-4088-9ef7-6d9e974bf722', 'Amazon Dishwasher', '2024-04-25', 'rejected'),

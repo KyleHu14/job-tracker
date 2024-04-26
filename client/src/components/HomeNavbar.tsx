@@ -1,9 +1,8 @@
-"use client";
-
 import * as React from "react";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
+import LoginButton from "./LoginButton";
 
 type NavbarLinkProps = {
 	className?: string;
@@ -31,9 +30,7 @@ export default function HomeNavbar() {
 			<NavbarLink className="text-lg" href="/">
 				JobTracker 3.0
 			</NavbarLink>
-			<NavbarLink className="text-muted-foreground" href="/dashboard">
-				Login
-			</NavbarLink>
+			<LoginButton />
 		</nav>
 	);
 }

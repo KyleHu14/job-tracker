@@ -16,28 +16,6 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 
-interface TableHeaderContainerProps {
-	id: string;
-	isPlaceholder: boolean;
-	headerText: any; // Actual Type : ColumnDefTemplate<HeaderContext<TData, unknown>> | undefined
-	headerContext: any; // Actual Type : CoreHeader<TData, unknown>.getContext: () => HeaderContext<TData, unknown>
-}
-
-function TableHeadContainer({
-	id,
-	isPlaceholder,
-	headerText,
-	headerContext,
-}: TableHeaderContainerProps) {
-	if (!isPlaceholder) {
-		return (
-			<TableHead key={id}>
-				{flexRender(headerText, headerContext)}
-			</TableHead>
-		);
-	}
-}
-
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
@@ -56,26 +34,25 @@ export function DataTable<TData, TValue>({
 	return (
 		<div className="rounded-md border">
 			<Table>
-				{/* Table Header | Row 1 */}
 				<TableHeader>
 					{table.getHeaderGroups().map((headerGroup) => (
 						<TableRow key={headerGroup.id}>
 							{headerGroup.headers.map((header) => {
-								// prettier-ignore
 								return (
-									<TableHeadContainer
-										id={header.id}
-										isPlaceholder={header.isPlaceholder}
-										headerText={header.column.columnDef.header}
-										headerContext={header.getContext()}
-									/>
+									<TableHead key={header.id}>
+										{header.isPlaceholder
+											? null
+											: flexRender(
+													header.column.columnDef
+														.header,
+													header.getContext()
+											  )}
+									</TableHead>
 								);
 							})}
 						</TableRow>
 					))}
 				</TableHeader>
-
-				{/* Table Body | Row 2 - N*/}
 				<TableBody>
 					{table.getRowModel().rows?.length ? (
 						table.getRowModel().rows.map((row) => (

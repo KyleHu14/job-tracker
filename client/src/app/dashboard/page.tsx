@@ -1,6 +1,8 @@
 import { JobApplication, jobColumns } from "./columns";
 import { DataTable } from "./data-table";
 
+import DashboardNavbar from "@/components/DashboardNavbar";
+
 async function getData(): Promise<JobApplication[]> {
 	return [
 		{
@@ -21,11 +23,14 @@ async function getData(): Promise<JobApplication[]> {
 }
 
 export default async function Dashboard() {
-	const data = await getData();
+	const tableData = await getData();
 
 	return (
-		<div className="container mx-auto py-10">
-			<DataTable columns={jobColumns} data={data} />
-		</div>
+		<>
+			<DashboardNavbar />
+			<div className="container mx-auto py-10">
+				<DataTable columns={jobColumns} data={tableData} />
+			</div>
+		</>
 	);
 }

@@ -9,10 +9,11 @@ Frontend:
 1. Nextjs
 2. Shadcn
 3. TailwindCSS
+4. NextAuth
 
 Backend:
 
 1. Supabase
-2. Node.js (Planned)
+2. Node.js & Express.js
 
 ## Project Structure

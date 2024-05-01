@@ -9,11 +9,25 @@ Frontend:
 1. Nextjs
 2. Shadcn
 3. TailwindCSS
-4. NextAuth
 
 Backend:
 
 1. Supabase
 2. Node.js & Express.js
 
+Authentication : NextAuth
+
 ## Project Structure
+
+The project is organized into the following folders:
+
+1. Client : Holds the Nextjs files
+2. Server : Contains the SQL code, ER Diagrams, and the NodeJS API files
+
+## Installation and Running
+
+To run this project locally, follow the steps below :
+
+1. Clone this repository
+2. Navigate to the /client directory and run npm i
+3. Navigate to the /server/api directory and run npm i

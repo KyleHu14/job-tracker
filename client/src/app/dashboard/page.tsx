@@ -3,6 +3,7 @@ import { JobApplication, jobColumns } from "./columns";
 import { DataTable } from "./data-table";
 
 import DashboardNavbar from "@/components/DashboardNavbar";
+import { DashBoardAddButton } from "@/components/DashboardModal/DashBoardAddButton";
 
 async function getData(): Promise<JobApplication[]> {
 	return [
@@ -10,14 +11,14 @@ async function getData(): Promise<JobApplication[]> {
 			id: "728ed52f",
 			user_id: "1",
 			title: "Amazon Dishwasher",
-			date_applied: new Date("2024-04-1"),
+			date_applied: "04-23-2020",
 			application_status: "rejected",
 		},
 		{
 			id: "489e1d42",
 			user_id: "2",
 			title: "Google Food Technician",
-			date_applied: new Date("2024-04-10"),
+			date_applied: "04-23-2020",
 			application_status: "pending",
 		},
 	];
@@ -29,8 +30,12 @@ export default async function Dashboard() {
 	return (
 		<>
 			<DashboardNavbar />
-			<Button>Add a Job</Button>
-			<div className="container mx-auto py-10">
+
+			<div className="container pt-5 pb-10">
+				<DashBoardAddButton />
+			</div>
+
+			<div className="container pt-5">
 				<DataTable columns={jobColumns} data={tableData} />
 			</div>
 		</>

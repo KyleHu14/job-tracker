@@ -8,7 +8,7 @@ export type JobApplication = {
 	id: string;
 	user_id: string;
 	title: string;
-	date_applied: Date;
+	date_applied: string;
 	application_status: string;
 };
 

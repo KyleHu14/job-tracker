@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { JobApplication, jobColumns } from "./columns";
 import { DataTable } from "./data-table";
 
@@ -28,6 +29,7 @@ export default async function Dashboard() {
 	return (
 		<>
 			<DashboardNavbar />
+			<Button>Add a Job</Button>
 			<div className="container mx-auto py-10">
 				<DataTable columns={jobColumns} data={tableData} />
 			</div>

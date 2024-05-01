@@ -5,5 +5,10 @@ export default async function DashboardNavbar() {
 
 	if (!session?.user) return null;
 
-	return <div>{session.user.email}</div>;
+	return (
+		<nav className="flex justify-between p-5 border-b-2">
+			<a href="/dashboard">JobTracker</a>
+			<div>{session.user.name}</div>
+		</nav>
+	);
 }

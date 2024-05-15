@@ -53,7 +53,7 @@ export default async function DashboardNavbar() {
 									redirectTo: "/",
 								});
 							}}
-							className="w-full">
+							className="w-full px-2 text-[0.85rem]">
 							<button>Sign Out</button>
 						</form>
 					</MenubarContent>

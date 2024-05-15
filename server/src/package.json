@@ -1,21 +1,25 @@
 {
-	"name": "api",
+	"name": "src",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
-	"type": "module",
 	"scripts": {
-		"start": "nodemon index.js"
+		"start": "node index.js",
+		"dev": "nodemon index.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
+	"author": "Kyle Hu",
+	"license": "MIT",
 	"dependencies": {
-		"@supabase/supabase-js": "^2.42.7",
+		"@supabase/supabase-js": "^2.43.1",
+		"cors": "^2.8.5",
 		"dotenv": "^16.4.5",
 		"express": "^4.19.2"
 	},
 	"devDependencies": {
+		"@eslint/js": "^9.2.0",
+		"eslint": "^9.2.0",
+		"globals": "^15.2.0",
 		"nodemon": "^3.1.0"
 	}
 }

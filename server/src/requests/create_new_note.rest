@@ -1,7 +1,7 @@
-POST http://localhost:3001/api/notes 
+POST http://localhost:3001/api/users 
 Content-Type: application/json 
 
 {
-    "content": "Single page apps use token based auth", 
-    "important": false
+    "userName": "newUser2", 
+    "emailAddress": "newUser2@gmail.com"
 }

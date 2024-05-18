@@ -16,20 +16,31 @@ beforeEach(async () => {
 	await createUsers(testUsers)
 })
 
-test("Users are returned as JSON", async () => {
+test("users_are_returned_as_json", async () => {
 	await api
 		.get("/api/users")
 		.expect(200)
 		.expect("Content-Type", /application\/json/)
 })
 
-test("There are two users", async () => {
+test("there_are_two_users", async () => {
 	const response = await api.get("/api/users")
 
 	assert.strictEqual(response.body.length, testUsers.length)
 })
 
-test("Validating first user's credentials", async () => {
+test("validate_first_user_credentials", async () => {
+	const response = await api.get("/api/users")
+
+	const firstUser = response.body[0]
+
+	assert.strictEqual(firstUser.email_address, "test1@gmail.com")
+	assert.strictEqual(firstUser.user_name, "test1")
+})
+
+test("validate_creating_a_user", async () => {
+	const newUser = { email_address: "test3@gmail.com", user_name: "test3" }
+
 	const response = await api.get("/api/users")
 
 	const firstUser = response.body[0]

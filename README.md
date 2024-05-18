@@ -1,33 +1,22 @@
-# Introduction
+# Job Tracker
 
-This is a work in progress web application that allows users to track their job applications on an online platform. This is the 2nd revision of the project due to design issues and wanting to simplify the project.
+This is a work in progress web application that allows users to track their job applications on a website.
 
-## Tech Stack
+## Introduction
 
-Frontend:
+The frontend of the website is built with [Next.js](https://nextjs.org/) with frontend libraries [shadcn](https://ui.shadcn.com/) and [TailwindCSS](https://tailwindcss.com/).
 
-1. Nextjs
-2. Shadcn
-3. TailwindCSS
+The backend is organized as a Rest API. The API is built with NodeJS and Express which connects to a PostgreSQL database from [Supabase](https://supabase.com/).
 
-Backend:
-
-1. Supabase
-2. Node.js & Express.js
-
-Authentication : NextAuth
+Lastly, authentication is handled with [Auth.js](https://authjs.dev/)
 
 ## Project Structure
 
 The project is organized into the following folders:
 
-1. Client : Holds the Nextjs files
-2. Server : Contains the SQL code, ER Diagrams, and the NodeJS API files
+1. :computer: Client - Holds all the Next.js files.
+2. :electric_plug: Server - Contains the SQL code, ER Diagrams, and NodeJS API files.
 
-## Installation and Running
+## Table of Contents
 
-To run this project locally, follow the steps below :
-
-1. Clone this repository
-2. Navigate to the /client directory and run npm i
-3. Navigate to the /server/api directory and run npm i
+To learn more about implementation details follow the links below :

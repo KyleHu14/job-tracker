@@ -41,12 +41,19 @@ test("validate_first_user_credentials", async () => {
 test("validate_creating_a_user", async () => {
 	const newUser = { email_address: "test3@gmail.com", user_name: "test3" }
 
-	const response = await api.get("/api/users")
+	// prettier-ignore
+	const postResponse = await api
+		.post("/api/users")
+		.send([newUser])
+		.expect(201)
+		.expect('Content-Type', /application\/json/)
 
-	const firstUser = response.body[0]
+	assert.strictEqual(postResponse.body.user_name, "test3")
+	assert.strictEqual(postResponse.body.email_address, "test3@gmail.com")
 
-	assert.strictEqual(firstUser.email_address, "test1@gmail.com")
-	assert.strictEqual(firstUser.user_name, "test1")
+	const getResponse = await api.get("/api/users")
+
+	assert.strictEqual(getResponse.body.length, testUsers.length + 1)
 })
 
 // after(async () => {})

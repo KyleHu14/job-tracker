@@ -1,7 +1,7 @@
 const userRouter = require("express").Router()
 
 // Services
-const { getUsers, getUser, createUser } = require("../services/users")
+const { getUsers, getUser, createUsers } = require("../services/users")
 
 // Logger
 const logger = require("../utils/logger")
@@ -25,12 +25,9 @@ userRouter.get("/:email", async (request, response, next) => {
 })
 
 userRouter.post("/", async (request, response, next) => {
-	const { userName, emailAddress } = request.body
 	try {
-		const userData = await createUser([
-			{ email_address: emailAddress, user_name: userName },
-		])
-		response.json(userData)
+		const userData = await createUsers(request.body)
+		response.status(201).json(userData)
 	} catch (error) {
 		next(error)
 	}

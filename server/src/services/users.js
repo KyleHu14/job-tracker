@@ -39,6 +39,13 @@ const getUser = async (emailAddress) => {
  * @param users Object(email_address : string, user_name : string)[] - Array of user objects.
  */
 const createUsers = async (users) => {
+	// Perform error checking here since supabase can only check for not null
+	// users.forEach(user => {
+	// 	if (){
+
+	// 	}
+	// })
+
 	const { data, error } = await supabaseClient
 		.from("user_account")
 		.insert(users)

@@ -17,9 +17,7 @@ const errorHandler = (error, request, response, next) => {
 	logger.error(`Error Handler Message : ${error.name}`)
 
 	switch (error.name) {
-		case "CastError":
-			return response.status(400).send({ error: "malformatted id" })
-		case "ValidationError":
+		case "NullError":
 			return response.status(400).json({ error: error.message })
 		case "ServerError":
 			return response.status(500).json({ error: error.message })

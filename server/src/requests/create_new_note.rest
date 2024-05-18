@@ -2,6 +2,6 @@ POST http://localhost:3001/api/users
 Content-Type: application/json 
 
 {
-    "userName": "newUser2", 
-    "emailAddress": "newUser2@gmail.com"
+    "user_name": "", 
+    "email_address": "newUser2@gmail.com"
 }

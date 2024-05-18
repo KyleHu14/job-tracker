@@ -56,4 +56,21 @@ test("validate_creating_a_user", async () => {
 	assert.strictEqual(getResponse.body.length, testUsers.length + 1)
 })
 
+test("user_with_null_fields_is_not_created", async () => {
+	const newUser = {
+		email_address: "11@gmail.com",
+	}
+
+	// prettier-ignore
+	const postResponse = await api
+		.post("/api/users")
+		.send([newUser])
+		.expect(400)
+		.expect('Content-Type', /application\/json/)
+
+	const getResponse = await api.get("/api/notes")
+
+	assert.strictEqual(getResponse.body.length, testUsers.length)
+})
+
 // after(async () => {})

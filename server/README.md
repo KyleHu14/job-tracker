@@ -1,6 +1,6 @@
 # JobTracker - Backend
 
-The backend of JobTracker is a REST API that uses Node.js. The structure of the API largely follows the format of Part 4 of the [Full Stack open](https://fullstackopen.com/en/) tutorial.
+The backend of JobTracker is a REST API that uses Node.js and Express. The structure of the API largely follows the format of Part 4 of the [Full Stack open](https://fullstackopen.com/en/) tutorial.
 
 ## Server Directory
 
@@ -10,18 +10,7 @@ The backend of JobTracker is a REST API that uses Node.js. The structure of the 
 
 ## Src Directory
 
-src
-├── controllers : Contains express routers
-├── services : Initializes supabaseClient and supabase utility functions
-├── tests : Test files that test each end point
-├── utils
-│ ├── config.js : Exports env variables
-│ ├── logger.js : Debug logger used for printing information
-│ ├── middleware.js : Middleware used in the API
-│ └── supabaseErrorThrower.js : Error thrower used for supabase utilities
-├── requests : REST Client requests used for testing
-├── app.js : Creates the Express app and exports it
-└── index.js : Initializes the app from app.js by having it listen on the port
+The src directory contains all files of the API. You can read more about how it's designed and structured [here](https://github.com/KyleHu14/job-tracker/tree/main/server/src).
 
 ## Design of the Database
 

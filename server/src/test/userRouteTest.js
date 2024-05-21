@@ -68,7 +68,7 @@ test("user_with_null_fields_is_not_created", async () => {
 		.expect(400)
 		.expect('Content-Type', /application\/json/)
 
-	const getResponse = await api.get("/api/notes")
+	const getResponse = await api.get("/api/users")
 
 	assert.strictEqual(getResponse.body.length, testUsers.length)
 })

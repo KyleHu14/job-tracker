@@ -40,10 +40,15 @@ const getUser = async (emailAddress) => {
  */
 const createUsers = async (users) => {
 	// Perform error checking here since supabase can only check for not null
-	// users.forEach((user) => {
-	// 	if (!user.email_address && !user.user_name) {
-	// 	}
-	// })
+	users.forEach((user) => {
+		if (!user.email_address || !user.user_name) {
+			const nullError = new Error(
+				`Error : user_name or email_address cannot be null or empty.`
+			)
+			nullError.name = "NullError"
+			throw nullError
+		}
+	})
 
 	const { data, error } = await supabaseClient
 		.from("user_account")

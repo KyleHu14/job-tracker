@@ -1,4 +1,4 @@
-# src/ directory
+# src
 
 The src directory holds all files of the Express API. This README will outline the structure and other information about the API. The structure of this directory largely follows the format showcased in the [Full Stack open](https://fullstackopen.com/en/) tutorial.
 

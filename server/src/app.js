@@ -1,6 +1,8 @@
 // [Importing]
 // 1. Libraries
 const express = require("express")
+require("express-async-errors")
+
 const cors = require("cors")
 
 // 2. Middleware

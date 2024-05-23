@@ -10,6 +10,7 @@ const middleware = require("./utils/middleware")
 
 // 3. Routers
 const usersRouter = require("./controllers/users")
+const jobsRouter = require("./controllers/jobs")
 
 // [Initializing]
 
@@ -24,6 +25,7 @@ app.get("/api", (request, response) => {
 })
 
 app.use("/api/users", usersRouter)
+app.use("/api/jobs", jobsRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

@@ -1,6 +1,6 @@
 # Job Tracker
 
-This is a work in progress web application that allows users to track their job applications on a website.
+A web application that allows users to track their job applications.
 
 ## Introduction
 

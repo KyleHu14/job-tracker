@@ -33,11 +33,8 @@ The src directory holds all files of the Express API. This README will outline t
 
 This project uses Node.js's testing module, cross env, and the supertest package. Tests are performed in a separate testing database.
 
-To run tests, we can use the following commands :
+To run tests, use the following commands :
 
-1. npm test -- tests/userRouteTest.js
-    - Used to test a single file
-2. npm test -- --test-name-pattern="users_are_returned_as_json"
-    - Used to test a single test that has this name
-3. npm run test -- --test-name-pattern="users"
-    - Used to test any tests that contain the string "users"
+1. Test a single file : npm test -- tests/userRouteTest.js
+2. Run any tests that have this name : npm test -- --test-name-pattern="users_are_returned_as_json"
+3. Run any tests that contain the string "users" : npm run test -- --test-name-pattern="users"

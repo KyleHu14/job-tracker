@@ -3,7 +3,7 @@ const supertest = require("supertest")
 const assert = require("assert")
 
 const { deleteAllUsers, createUsers, getUsers } = require("../services/users")
-const { testUsers } = require("./testUtils")
+const { testUsers } = require("./utils")
 
 const app = require("../app")
 const api = supertest(app)

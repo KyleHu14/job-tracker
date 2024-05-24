@@ -59,7 +59,7 @@ const createUsers = async (users) => {
 		throwSupabaseError(error)
 	}
 
-	return data[0]
+	return data
 }
 
 /**

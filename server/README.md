@@ -10,7 +10,7 @@ The backend of JobTracker is a REST API that uses Node.js and Express. The struc
 
 ## Src Directory
 
-The src directory contains all files of the API. You can read more about how it's designed and structured [here](https://github.com/KyleHu14/job-tracker/tree/main/server/src).
+The src directory contains all files of the API. You can read more about it [here](https://github.com/KyleHu14/job-tracker/tree/main/server/src).
 
 ## Design of the Database
 

@@ -12,7 +12,7 @@ Lastly, authentication is handled with [Auth.js](https://authjs.dev/)
 
 ## Project Structure
 
-The project is organized into the following folders:
+The project is organized into the following folders. Click their links to read more:
 
 1. :computer: Client - Holds all the Next.js files.
 2. :electric_plug: [Server](https://github.com/KyleHu14/job-tracker/tree/main/server) - Contains the SQL code, ER Diagrams, and NodeJS API files.

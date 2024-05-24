@@ -1,14 +1,12 @@
 # src
 
-The src directory holds all files of the Express API. This README will outline the structure and other information about the API. The structure of this directory largely follows the format showcased in the [Full Stack open](https://fullstackopen.com/en/) tutorial.
+The src directory holds all files of the Express API. This README will outline the structure and other information about the API.
 
 ## Directory
 
 1. controllers
-
     - Controllers contains all the Express routers. Each file represents a route and its relevant sub routes.
     - For example, users.js would contain the get, post, or put requests relevant to the users table.
-
 2. requests
     - I use the VS Code [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension to test making requests.
     - The requests folder contains REST Client files that are used to test the functionality of the routes.
@@ -28,6 +26,8 @@ The src directory holds all files of the Express API. This README will outline t
     - Creates the Express app and exports it to be used in index.js.
 7. index.js
     - Initializes the app from app.js by having it listen to the port.
+
+## Controllers
 
 ## Testing
 

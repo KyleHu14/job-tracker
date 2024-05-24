@@ -46,5 +46,12 @@ describe("Group 1 : Some users and job applications exist in database", () => {
 			.expect(200)
 			.expect("Content-Type", /application\/json/)
 	})
+
+	// Test 2 : The testdb should have a total of 5 job applications
+	test("job_applications should only have 5 records", async () => {
+		const response = await api.get("/api/jobapps")
+
+		assert.strictEqual(response.body.length, testJobApplications.length)
+	})
 })
 // after(async () => {})

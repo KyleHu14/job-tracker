@@ -53,5 +53,23 @@ describe("Group 1 : Some users and job applications exist in database", () => {
 
 		assert.strictEqual(response.body.length, testJobApplications.length)
 	})
+
+	// Test 3 : Verifies that the job applications have been created correctly
+	test("Verifying that specific job apps have been created", async () => {
+		const response = await api.get("/api/jobapps")
+
+		const companyNames = response.body.map((r) => r.company_name)
+		const titles = response.body.map((r) => r.job_title)
+
+		// Checking company_names
+		assert(companyNames.includes("Amazon"))
+		assert(companyNames.includes("Google"))
+		assert(companyNames.includes("UCI OIT"))
+
+		// Checking Titles
+		assert(titles.includes("Software Engineering Intern 2024"))
+		assert(titles.includes("Web Developer"))
+		assert(titles.includes("Full Stack Engineer"))
+	})
 })
 // after(async () => {})

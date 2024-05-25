@@ -1,6 +1,6 @@
-const supabaseClient = require("./supabase/supabase")
+const supabaseClient = require("./supabase")
 
-const throwSupabaseError = require("../utils/supabaseErrorThrower")
+const throwSupabaseError = require("../../utils/supabaseErrorThrower")
 
 /**
  * Returns all users from supabase database.

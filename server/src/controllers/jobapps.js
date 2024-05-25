@@ -2,15 +2,8 @@ const jobsRouter = require("express").Router()
 
 const { getJobApps, getUserJobApps } = require("../services/jobapps")
 
-const { verify } = require("../services/googleVerify")
-
-const getTokenFrom = (request) => {
-	const authorization = request.get("authorization")
-	if (authorization && authorization.startsWith("Bearer ")) {
-		return authorization.replace("Bearer ", "")
-	}
-	return null
-}
+const { verify } = require("../services/google/tokenVerification")
+const getTokenFrom = require("../utils/getToken")
 
 jobsRouter.post("/", async (request, response) => {
 	const body = request.body

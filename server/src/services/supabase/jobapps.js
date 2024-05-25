@@ -1,4 +1,4 @@
-const supabaseClient = require("./supabase/supabase")
+const supabaseClient = require("./supabase")
 
 const throwSupabaseError = require("../utils/supabaseErrorThrower")
 

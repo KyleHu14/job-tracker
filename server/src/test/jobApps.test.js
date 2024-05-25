@@ -74,8 +74,10 @@ describe("Group 1 : Some users and job applications exist in database", () => {
 
 	// Test 4 : Validating behavior of the /:userId route
 	test("The /:userId route should return the correct number of records associated with the userId", async () => {
+		// First get the users that exist in the db
 		const userResponse = await api.get("/api/users")
 
+		// Next grab the user's job applications
 		const userJobAppResponse = await api.get(
 			`/api/jobapps/${userResponse.body[0].id}`
 		)

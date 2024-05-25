@@ -71,5 +71,16 @@ describe("Group 1 : Some users and job applications exist in database", () => {
 		assert(titles.includes("Web Developer"))
 		assert(titles.includes("Full Stack Engineer"))
 	})
+
+	// Test 4 : Validating behavior of the /:userId route
+	test("The /:userId route should return the correct number of records associated with the userId", async () => {
+		const userResponse = await api.get("/api/users")
+
+		const userJobAppResponse = await api.get(
+			`/api/jobapps/${userResponse.body[0].id}`
+		)
+
+		assert.strictEqual(userJobAppResponse.body.length, 3)
+	})
 })
 // after(async () => {})

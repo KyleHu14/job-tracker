@@ -35,6 +35,7 @@ This project uses Node.js's testing module, cross env, and the supertest package
 
 To run tests, use the following commands :
 
-1. Test a single file : npm test -- tests/userRouteTest.js
+1. Test a single file : npm test -- test/users.test.js
 2. Run any tests that have this name : npm test -- --test-name-pattern="users_are_returned_as_json"
 3. Run any tests that contain the string "users" : npm run test -- --test-name-pattern="users"
+4. Run tests that are marked with .only : npm test -- --test-only

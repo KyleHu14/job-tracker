@@ -9,9 +9,9 @@ jobsRouter.get("/", async (request, response) => {
 })
 
 jobsRouter.get("/:userId", async (request, response) => {
-	const userJobApps = await getUserJobApps()
+	const userJobApps = await getUserJobApps(request.params.userId)
 
-	console.log(userJobApps)
+	response.json(userJobApps)
 })
 
 module.exports = jobsRouter

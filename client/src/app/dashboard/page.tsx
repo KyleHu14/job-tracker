@@ -1,10 +1,10 @@
-import { JobApplication, jobColumns } from "./columns";
-import { DataTable } from "./data-table";
+import { JobApplication, jobColumns } from "./columns"
+import { DataTable } from "./data-table"
 
-import DashboardNavbar from "@/components/DashboardNavbar";
-import { DashBoardAddButton } from "@/components/DashboardModal/DashBoardAddButton";
+import DashboardNavbar from "@/components/DashboardNavbar"
+import { DashBoardAddButton } from "@/components/DashboardModal/DashBoardAddButton"
 
-import { auth } from "@/auth";
+import { auth } from "@/auth"
 
 import {
 	Card,
@@ -12,11 +12,11 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/card"
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 
-import Link from "next/link";
+import Link from "next/link"
 
 async function getData(): Promise<JobApplication[]> {
 	return [
@@ -34,11 +34,11 @@ async function getData(): Promise<JobApplication[]> {
 			date_applied: "04-23-2020",
 			application_status: "pending",
 		},
-	];
+	]
 }
 
 export default async function Dashboard() {
-	const session = await auth();
+	const session = await auth()
 
 	if (!session)
 		return (
@@ -60,14 +60,15 @@ export default async function Dashboard() {
 					</Card>
 				</div>
 			</>
-		);
+		)
 
-	const tableData = await getData();
+	const tableData = await getData()
 
 	return (
 		<>
 			<DashboardNavbar />
 
+			<div>{JSON.stringify(session, null, 2)}</div>
 			<div className="container pt-5 pb-10">
 				<DashBoardAddButton />
 			</div>
@@ -76,5 +77,5 @@ export default async function Dashboard() {
 				<DataTable columns={jobColumns} data={tableData} />
 			</div>
 		</>
-	);
+	)
 }

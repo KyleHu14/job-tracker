@@ -2,8 +2,8 @@ const { test, after, beforeEach, describe } = require("node:test")
 const supertest = require("supertest")
 const assert = require("assert")
 
-const { deleteAllUsers, createUsers } = require("../services/users")
-const { deleteAllJobApps } = require("../services/jobapps")
+const { deleteAllUsers, createUsers } = require("../services/supabase/users")
+const { deleteAllJobApps } = require("../services/supabase/jobapps")
 const {
 	testUsers,
 	testJobApplications,

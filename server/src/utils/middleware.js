@@ -21,6 +21,12 @@ const errorHandler = (error, request, response, next) => {
 			return response.status(400).json({ error: error.message })
 		case "ServerError":
 			return response.status(500).json({ error: error.message })
+		case "JsonWebTokenError":
+			return response.status(401).json({ error: "token invalid" })
+		case "TokenVerificationError":
+			return response
+				.status(401)
+				.json({ error: "Error validating token" })
 	}
 
 	next(error)

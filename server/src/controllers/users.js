@@ -1,7 +1,7 @@
 const usersRouter = require("express").Router()
 
 // Services
-const { getUsers, getUser, createUsers } = require("../services/users")
+const { getUsers, getUser, createUsers } = require("../services/supabase/users")
 
 // Logger
 const logger = require("../utils/logger")

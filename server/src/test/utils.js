@@ -1,4 +1,4 @@
-const { createJobApps } = require("../services/jobapps")
+const { createJobApps } = require("../services/supabase/jobapps")
 
 const testUsers = [
 	{ email_address: "test1@gmail.com", user_name: "test1" },

@@ -1,6 +1,10 @@
 const jobsRouter = require("express").Router()
 
-const { getJobApps, getUserJobApps } = require("../services/supabase/jobapps")
+const {
+	getJobApps,
+	getUserJobApps,
+	createJobApps,
+} = require("../services/supabase/jobapps")
 
 const { verify } = require("../services/google/tokenVerification")
 const getTokenFrom = require("../utils/getToken")
@@ -11,7 +15,9 @@ jobsRouter.post("/", async (request, response) => {
 
 	await verify(requestToken)
 
-	response.json("Hello")
+	const createData = await createJobApps([body])
+
+	response.json(createData)
 })
 
 jobsRouter.get("/", async (request, response) => {

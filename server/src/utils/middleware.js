@@ -24,9 +24,7 @@ const errorHandler = (error, request, response, next) => {
 		case "JsonWebTokenError":
 			return response.status(401).json({ error: "token invalid" })
 		case "TokenVerificationError":
-			return response
-				.status(401)
-				.json({ error: "Error validating token" })
+			return response.status(401).json({ error: error.message })
 	}
 
 	next(error)

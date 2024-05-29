@@ -1,6 +1,6 @@
 const supabaseClient = require("./supabase")
 
-const throwSupabaseError = require("../utils/supabaseErrorThrower")
+const throwSupabaseError = require("../../utils/supabaseErrorThrower")
 
 const getJobApps = async () => {
 	const { data, error } = await supabaseClient.rpc("get_job_applications")

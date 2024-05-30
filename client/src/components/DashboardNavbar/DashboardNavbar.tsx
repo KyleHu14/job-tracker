@@ -1,12 +1,11 @@
 import { signOut } from "@/auth"
-import { auth } from "../auth"
+import { auth } from "@/auth"
 
 import Image from "next/image"
 
 import {
 	Menubar,
 	MenubarContent,
-	MenubarItem,
 	MenubarMenu,
 	MenubarSeparator,
 	MenubarTrigger,

@@ -8,6 +8,7 @@ const {
 	testUsers,
 	testJobApplications,
 	createJobAppsWithID,
+	generateIdToken,
 } = require("./utils")
 
 const app = require("../app")
@@ -85,4 +86,13 @@ describe("Group 1 : Some users and job applications exist in database", () => {
 		assert.strictEqual(userJobAppResponse.body.length, 3)
 	})
 })
+
+// Group 1 : These tests assume that there are some users & job applications in the test db
+describe.only("Group 2 : Only users exist in the db", () => {
+	// 1. Before starting our tests, clear entire db and re populate
+	beforeEach(async () => {})
+
+	test.only("Validate creating a new record", async () => {})
+})
+
 // after(async () => {})

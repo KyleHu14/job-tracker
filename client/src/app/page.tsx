@@ -1,4 +1,4 @@
-import Navbar from "@/components/HomeNavbar"
+import Navbar from "@/components/HomeNavbar/HomeNavbar"
 
 async function getNotes() {
 	const res = await fetch(`http://localhost:3001/api/notes`)

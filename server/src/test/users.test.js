@@ -7,6 +7,8 @@ const {
 	createUsers,
 	getUsers,
 } = require("../services/supabase/users")
+
+const { deleteAllJobApps } = require("../services/supabase/jobapps")
 const { testUsers } = require("./utils")
 
 const app = require("../app")
@@ -16,6 +18,7 @@ const api = supertest(app)
 describe("Group 1 : Some users exist in database", () => {
 	// 1. Before starting our tests, first delete all users in test db and create new ones
 	beforeEach(async () => {
+		await deleteAllJobApps()
 		await deleteAllUsers()
 		await createUsers(testUsers)
 	})

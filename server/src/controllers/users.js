@@ -4,7 +4,7 @@ const usersRouter = require("express").Router()
 const { getUsers, getUser, createUsers } = require("../services/supabase/users")
 
 // Logger
-const logger = require("../utils/logger")
+// const logger = require("../utils/logger")
 
 usersRouter.get("/", async (request, response) => {
 	const userData = await getUsers()

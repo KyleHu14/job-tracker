@@ -1,14 +1,14 @@
-import * as React from "react";
-import Link from "next/link";
+import * as React from "react"
+import Link from "next/link"
 
-import { cn } from "@/lib/utils";
-import LoginButton from "./LoginButton";
+import { cn } from "@/lib/utils"
+import LoginButton from "../LoginButton/LoginButton"
 
 type NavbarLinkProps = {
-	className?: string;
-	href: string;
-	children: React.ReactNode;
-};
+	className?: string
+	href: string
+	children: React.ReactNode
+}
 
 // Individual NavLink used in Navbar component
 function NavbarLink({ className, href, children }: NavbarLinkProps) {
@@ -21,7 +21,7 @@ function NavbarLink({ className, href, children }: NavbarLinkProps) {
 			href={href}>
 			{children}
 		</Link>
-	);
+	)
 }
 
 export default function HomeNavbar() {
@@ -32,5 +32,5 @@ export default function HomeNavbar() {
 			</NavbarLink>
 			<LoginButton />
 		</nav>
-	);
+	)
 }

@@ -26,7 +26,8 @@
 		"**/*.ts",
 		"**/*.tsx",
 		".next/types/**/*.ts",
-		"testSetup.mts"
+		"testSetup.mts",
+		"vite.config.mts"
 	],
 	"exclude": ["node_modules"]
 }

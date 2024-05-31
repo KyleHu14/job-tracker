@@ -1,12 +1,12 @@
-# JobTracker - Frontend
+# :computer: JobTracker - Frontend
 
 The frontend of the website is built with [Next.js](https://nextjs.org/) with frontend libraries [shadcn](https://ui.shadcn.com/) and [TailwindCSS](https://tailwindcss.com/).
 
-## Server Directory
+## :open_file_folder: Server Directory
 
 The directory follows the standard src directory thats offered by Next.js. The only thing that should be noted is the auth.ts file in the src folder. The authentication configurations for Authjs are stored in this file.
 
-## Frontend Authentication Flow
+## :lock: Frontend Authentication Flow
 
 Note : This section will only describe the frontend authentication flow. The full authentication flow is described [here](https://github.com/KyleHu14/job-tracker/blob/main/README.md).
 

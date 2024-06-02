@@ -88,11 +88,28 @@ describe("Group 1 : Some users and job applications exist in database", () => {
 })
 
 // Group 1 : These tests assume that there are some users & job applications in the test db
-describe.only("Group 2 : Only users exist in the db", () => {
+describe.only("Group 2 : No job apps exist in db", () => {
 	// 1. Before starting our tests, clear entire db and re populate
 	beforeEach(async () => {})
 
-	test.only("Validate creating a new record", async () => {})
+	test.only("Validate creating a new record", async () => {
+		const TOKEN = ""
+
+		const newJobApp = {
+			user_id: "",
+			title: "",
+			date_applied: "",
+			application_status: "",
+			company_name: "",
+		}
+
+		const postResponse = await api
+			.post("/api/jobapps")
+			.send()
+			.set("Authorization", `Bearer ${TOKEN}`)
+			.expect(201)
+			.expect("Content-Type", /application\/json/)
+	})
 })
 
 // after(async () => {})

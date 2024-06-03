@@ -15,8 +15,11 @@ const SUPABASE_PUBLIC_KEY =
 		? process.env.TEST_SUPABASE_PUBLIC_KEY
 		: process.env.SUPABASE_PUBLIC_KEY
 
+const ID_TOKEN = process.env.NODE_ENV === "test" ? process.env.ID_TOKEN : ""
+
 module.exports = {
 	PORT,
 	SUPABASE_URL,
 	SUPABASE_PUBLIC_KEY,
+	ID_TOKEN,
 }

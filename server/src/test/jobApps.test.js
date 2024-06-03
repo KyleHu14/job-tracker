@@ -2,13 +2,18 @@ const { test, after, beforeEach, describe } = require("node:test")
 const supertest = require("supertest")
 const assert = require("assert")
 
-const { deleteAllUsers, createUsers } = require("../services/supabase/users")
+const config = require("../utils/config")
+
+const {
+	deleteAllUsers,
+	createUsers,
+	getUsers,
+} = require("../services/supabase/users")
 const { deleteAllJobApps } = require("../services/supabase/jobapps")
 const {
 	testUsers,
 	testJobApplications,
 	createJobAppsWithID,
-	generateIdToken,
 } = require("./utils")
 
 const app = require("../app")
@@ -90,23 +95,33 @@ describe("Group 1 : Some users and job applications exist in database", () => {
 // Group 1 : These tests assume that there are some users & job applications in the test db
 describe.only("Group 2 : No job apps exist in db", () => {
 	// 1. Before starting our tests, clear entire db and re populate
-	beforeEach(async () => {})
+	beforeEach(async () => {
+		// 1. First delete all job applications
+		await deleteAllJobApps()
 
-	test.only("Validate creating a new record", async () => {
-		const TOKEN = ""
+		// 2. Then we delete all users
+		await deleteAllUsers()
+
+		// 3. Now that we have a clear db, add some users first
+		await createUsers(testUsers)
+	})
+
+	test.only("Validate creating a new record with a correct id_token", async () => {
+		const users = await getUsers()
+		const firstUserId = users[0].id
 
 		const newJobApp = {
-			user_id: "",
-			title: "",
-			date_applied: "",
-			application_status: "",
-			company_name: "",
+			user_id: firstUserId,
+			title: "Associate Developer",
+			date_applied: "2023-04-11",
+			application_status: "pending",
+			company_name: "Fitbit",
 		}
 
 		const postResponse = await api
 			.post("/api/jobapps")
-			.send()
-			.set("Authorization", `Bearer ${TOKEN}`)
+			.send(newJobApp)
+			.set("Authorization", `Bearer ${config.ID_TOKEN}`)
 			.expect(201)
 			.expect("Content-Type", /application\/json/)
 	})

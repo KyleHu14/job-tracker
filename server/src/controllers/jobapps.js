@@ -17,7 +17,7 @@ jobsRouter.post("/", async (request, response) => {
 
 	const createData = await createJobApps([body])
 
-	response.json(createData)
+	response.status(201).json(createData)
 })
 
 jobsRouter.get("/", async (request, response) => {

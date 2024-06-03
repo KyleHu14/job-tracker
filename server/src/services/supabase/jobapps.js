@@ -19,6 +19,7 @@ const createJobApps = async (jobApps) => {
 		.select()
 
 	if (error) {
+		console.log(error)
 		throwSupabaseError(error)
 	}
 

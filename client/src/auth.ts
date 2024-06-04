@@ -4,9 +4,18 @@ import "next-auth/jwt"
 import Google from "next-auth/providers/google"
 import type { NextAuthConfig } from "next-auth"
 
+import insertUserIfExists from "@/supabase/users"
+
 const config = {
 	providers: [Google],
 	callbacks: {
+		async signIn({ user, account, profile, email, credentials }) {
+			if (user && user.email && user.name) {
+				await insertUserIfExists(user.email, user.name)
+			}
+
+			return true
+		},
 		jwt({ token, account }) {
 			if (account && account.id_token) {
 				token.id_token = account.id_token

@@ -55,7 +55,6 @@ export default async function DashboardNavbar() {
 						<form
 							action={async () => {
 								"use server"
-								console.log("Trigger")
 								await signOut({
 									redirect: true,
 									redirectTo: "/",

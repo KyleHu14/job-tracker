@@ -6,7 +6,7 @@ import { ColumnDef } from "@tanstack/react-table"
 // You can use a Zod schema here if you want.
 export type JobApplication = {
 	id: string
-	title: string
+	job_title: string
 	company_name: string
 	date_applied: string
 	application_status: string
@@ -14,7 +14,7 @@ export type JobApplication = {
 
 export const jobColumns: ColumnDef<JobApplication, any>[] = [
 	{
-		accessorKey: "title",
+		accessorKey: "job_title",
 		header: "Position Title",
 	},
 	{

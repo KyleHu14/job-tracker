@@ -1,28 +1,22 @@
-"use client"
-import { useState, useEffect } from "react"
+const useGetJobApplications = async (userId: string) => {
+	const response = await fetch(
+		`http://localhost:3001/api/jobapps/${userId}`,
+		{
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				// Add any other headers if needed
+			},
+		}
+	)
 
-interface JobApplication {
-	job_id: string
-	job_title: string
-	date_applied: string
-	application_status: string
+	if (!response.ok) {
+		throw new Error("Error occured in fetching data.")
+	}
+
+	const data = await response.json()
+
+	return data
 }
 
-export default function useFetchJobApps(userId: string) {
-	const [userJobApps, setJobApps] = useState<JobApplication[]>([])
-
-	useEffect(() => {
-		async function fetchJobApps() {
-			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/jobapps/${userId}`
-			)
-			const responseData = await response.json()
-			setJobApps(responseData)
-		}
-		if (userId) {
-			fetchJobApps()
-		}
-	}, [])
-
-	return userJobApps
-}
+export default useGetJobApplications

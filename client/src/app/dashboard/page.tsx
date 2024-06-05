@@ -4,8 +4,7 @@ import { DataTable } from "./data-table"
 import DashboardNavbar from "@/components/DashboardNavbar/DashboardNavbar"
 import { DashBoardAddButton } from "@/components/DashboardModal/DashBoardAddButton"
 
-import { getUserJobApplications } from "@/supabase/users"
-
+import useGetJobApplications from "@/hooks/useFetchJobApps"
 import { auth } from "@/auth"
 
 import {
@@ -23,7 +22,7 @@ import Link from "next/link"
 export default async function Dashboard() {
 	const session = await auth()
 
-	if (!session)
+	if (!session || !session.userId)
 		return (
 			<>
 				<div className=" w-screen h-screen flex justify-center items-center">
@@ -45,9 +44,24 @@ export default async function Dashboard() {
 			</>
 		)
 
-	const data: JobApplication[] | null = await getUserJobApplications(
+	// const data: JobApplication[] | null = await getUserJobApplications(
+	// 	session.userId
+	// )
+
+	const response = await fetch(
+		`http://localhost:3001/api/jobapps/${session.userId}`,
+		{
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				// Add any other headers if needed
+			},
+		}
+	)
+	const data: JobApplication[] | null = await useGetJobApplications(
 		session.userId
 	)
+
 	if (data) {
 		return (
 			<>

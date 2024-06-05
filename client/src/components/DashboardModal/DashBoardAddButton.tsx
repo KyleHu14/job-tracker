@@ -1,36 +1,37 @@
-"use client";
+"use client"
 
-import { useState } from "react";
+import { useState } from "react"
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
 	Dialog,
+	DialogClose,
 	DialogContent,
 	DialogDescription,
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialog"
 
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/input"
 
-import { Label } from "@/components/ui/label";
+import { Label } from "@/components/ui/label"
 
-import { PlusCircledIcon } from "@radix-ui/react-icons";
-import { DatePicker } from "./DatePicker";
-import { SelectStatus } from "./Select";
+import { PlusCircledIcon } from "@radix-ui/react-icons"
+import { DatePicker } from "./DatePicker"
+import { SelectStatus } from "./Select"
 
 export function DashBoardAddButton() {
-	const [date, setDate] = useState<Date>();
-	const [title, setTitle] = useState<string>("");
-	const [applicationStatus, setStatus] = useState<string>("");
+	const [date, setDate] = useState<Date>()
+	const [title, setTitle] = useState<string>("")
+	const [applicationStatus, setStatus] = useState<string>("")
 
 	const formSubmit = () => {
-		console.log(title);
-		console.log(date);
-		console.log(applicationStatus);
-	};
+		console.log(title)
+		console.log(date)
+		console.log(applicationStatus)
+	}
 
 	return (
 		<Dialog>
@@ -59,7 +60,7 @@ export function DashBoardAddButton() {
 							placeholder="Junior Software Engineer"
 							value={title}
 							onChange={(event) => {
-								setTitle(event.target.value);
+								setTitle(event.target.value)
 							}}
 						/>
 					</div>
@@ -85,11 +86,13 @@ export function DashBoardAddButton() {
 
 				{/* Submit Button */}
 				<DialogFooter>
-					<Button type="submit" onClick={formSubmit}>
-						Create
-					</Button>
+					<DialogClose asChild>
+						<Button type="submit" onClick={formSubmit}>
+							Create
+						</Button>
+					</DialogClose>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
-	);
+	)
 }

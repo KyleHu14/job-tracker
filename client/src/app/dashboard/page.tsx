@@ -4,6 +4,8 @@ import { DataTable } from "./data-table"
 import DashboardNavbar from "@/components/DashboardNavbar/DashboardNavbar"
 import { DashBoardAddButton } from "@/components/DashboardModal/DashBoardAddButton"
 
+import { getUserJobApplications } from "@/supabase/users"
+
 import { auth } from "@/auth"
 
 import {
@@ -17,25 +19,6 @@ import {
 import { Button } from "@/components/ui/button"
 
 import Link from "next/link"
-
-async function getData(): Promise<JobApplication[]> {
-	return [
-		{
-			id: "728ed52f",
-			user_id: "1",
-			title: "Amazon Dishwasher",
-			date_applied: "04-23-2020",
-			application_status: "rejected",
-		},
-		{
-			id: "489e1d42",
-			user_id: "2",
-			title: "Google Food Technician",
-			date_applied: "04-23-2020",
-			application_status: "pending",
-		},
-	]
-}
 
 export default async function Dashboard() {
 	const session = await auth()
@@ -62,21 +45,24 @@ export default async function Dashboard() {
 			</>
 		)
 
-	const tableData = await getData()
-
-	return (
-		<>
-			<DashboardNavbar />
-
-			{/* <div>{JSON.stringify(session, null, 2)}</div> */}
-
-			<div className="container pt-5 pb-10">
-				<DashBoardAddButton />
-			</div>
-
-			<div className="container pt-5">
-				<DataTable columns={jobColumns} data={tableData} />
-			</div>
-		</>
+	const data: JobApplication[] | null = await getUserJobApplications(
+		session.userId
 	)
+	if (data) {
+		return (
+			<>
+				<DashboardNavbar />
+
+				{/* <div>{JSON.stringify(session, null, 2)}</div> */}
+
+				<div className="container pt-5 pb-10">
+					<DashBoardAddButton />
+				</div>
+
+				<div className="container pt-5">
+					<DataTable columns={jobColumns} data={data} />
+				</div>
+			</>
+		)
+	}
 }

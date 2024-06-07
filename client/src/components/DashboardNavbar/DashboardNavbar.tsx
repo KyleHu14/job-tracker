@@ -1,4 +1,3 @@
-import { signOut } from "@/auth"
 import { auth } from "@/auth"
 
 import Image from "next/image"
@@ -10,6 +9,7 @@ import {
 	MenubarSeparator,
 	MenubarTrigger,
 } from "@/components/ui/menubar"
+import SignoutButton from "../SignoutButton/SignoutButton"
 
 export default async function DashboardNavbar() {
 	const session = await auth()
@@ -37,32 +37,23 @@ export default async function DashboardNavbar() {
 						/> */}
 					</MenubarTrigger>
 					<MenubarContent>
-						{/* User Information */}
-						<div className="flex flex-col mt-1.5">
-							<div className="px-2 text-[0.95rem]">
-								{session.user.name}
+						<div className="px-2">
+							{/* User Information */}
+							<div className="flex flex-col mt-1.5">
+								<div className="text-[0.95rem]">
+									{session.user.name}
+								</div>
+								<div className="text-[0.8rem] text-gray-500">
+									{session.user.email}
+								</div>
 							</div>
-							<div className="px-2 text-[0.8rem] text-gray-500">
-								{session.user.email}
-							</div>
+
+							{/* Line */}
+							<MenubarSeparator />
+
+							{/* Sign Out Button */}
+							<SignoutButton />
 						</div>
-
-						{/* Line */}
-						<MenubarSeparator />
-
-						{/* Sign Out Button */}
-
-						<form
-							action={async () => {
-								"use server"
-								await signOut({
-									redirect: true,
-									redirectTo: "/",
-								})
-							}}
-							className="w-full px-2 text-[0.85rem]">
-							<button>Sign Out</button>
-						</form>
 					</MenubarContent>
 				</MenubarMenu>
 			</Menubar>

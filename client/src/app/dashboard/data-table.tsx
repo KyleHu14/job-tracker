@@ -15,7 +15,6 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table"
-import useFetchJobApps from "@/hooks/useFetchJobApps"
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[]
@@ -32,13 +31,8 @@ export function DataTable<TData, TValue>({
 		getCoreRowModel: getCoreRowModel(),
 	})
 
-	// const userJobApps = useFetchJobApps("733683e8-7d0a-4b04-ae52-b8e6a6109f7c")
-
 	return (
 		<>
-			{/* {userJobApps.map((jobApp, index) => {
-				return <div key={index}>{jobApp.job_title}</div>
-			})} */}
 			<div className="rounded-md border">
 				<Table>
 					<TableHeader>

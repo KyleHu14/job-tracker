@@ -44,20 +44,6 @@ export default async function Dashboard() {
 			</>
 		)
 
-	// const data: JobApplication[] | null = await getUserJobApplications(
-	// 	session.userId
-	// )
-
-	const response = await fetch(
-		`http://localhost:3001/api/jobapps/${session.userId}`,
-		{
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				// Add any other headers if needed
-			},
-		}
-	)
 	const data: JobApplication[] | null = await useGetJobApplications(
 		session.userId
 	)

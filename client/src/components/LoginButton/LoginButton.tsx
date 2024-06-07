@@ -1,15 +1,25 @@
-import { signIn } from "@/auth"
+"use client"
 
 import { Button } from "../ui/button"
 
-export default function LoginButton() {
+import { signIn } from "next-auth/react"
+
+type ActionFunction = () => Promise<void>
+
+interface LoginButtonProps {
+	actionFunction?: ActionFunction
+}
+
+export default function LoginButton({ actionFunction }: LoginButtonProps) {
+	if (actionFunction) {
+		return <Button onClick={actionFunction}>Login with Google</Button>
+	}
 	return (
-		<form
-			action={async () => {
-				"use server"
-				await signIn("google", { redirectTo: "/dashboard" })
+		<Button
+			onClick={() => {
+				signIn("google", { callbackUrl: "/dashboard" })
 			}}>
-			<Button type="submit">Login with Google</Button>
-		</form>
+			Login with Google
+		</Button>
 	)
 }

@@ -3,21 +3,21 @@ import { expect, test } from "vitest"
 import { render, screen } from "@testing-library/react"
 
 import { DataTable } from "@/app/dashboard/data-table"
-import { jobColumns } from "@/app/dashboard/columns"
+import { jobColumns, JobApplication } from "@/app/dashboard/columns"
 
 test("Data Table renders content correctly", () => {
-	const tableData = [
+	const tableData: JobApplication[] = [
 		{
 			id: "728ed52f",
-			user_id: "1",
-			title: "Amazon Dishwasher",
+			job_title: "Dishwasher",
+			company_name: "Google",
 			date_applied: "04-23-2020",
 			application_status: "rejected",
 		},
 		{
 			id: "489e1d42",
-			user_id: "2",
-			title: "Google Food Technician",
+			job_title: "Food Technician",
+			company_name: "Scale AI",
 			date_applied: "04-23-2021",
 			application_status: "pending",
 		},
@@ -25,10 +25,10 @@ test("Data Table renders content correctly", () => {
 
 	render(<DataTable columns={jobColumns} data={tableData} />)
 
-	const title1 = screen.getByText("Amazon Dishwasher")
+	const title1 = screen.getByText("Dishwasher")
 	const date1 = screen.getByText("04-23-2020")
 
-	const title2 = screen.getByText("Google Food Technician")
+	const title2 = screen.getByText("Food Technician")
 	const date2 = screen.getByText("04-23-2021")
 
 	expect(title1).toBeDefined()

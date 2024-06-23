@@ -28,6 +28,7 @@ const config = {
 			}
 
 			const data = await getUserId(session.user.email)
+
 			if (data && data[0].id) {
 				session.userId = data[0].id
 			}

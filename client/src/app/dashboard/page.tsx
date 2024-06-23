@@ -1,10 +1,9 @@
-import { JobApplication, jobColumns } from "./columns"
+import { jobColumns } from "./columns"
 import { DataTable } from "./data-table"
 
 import DashboardNavbar from "@/components/DashboardNavbar/DashboardNavbar"
 import { DashBoardAddButton } from "@/components/DashboardModal/DashBoardAddButton"
 
-import useGetJobApplications from "@/hooks/useFetchJobApps"
 import { auth } from "@/auth"
 
 import {
@@ -17,8 +16,13 @@ import {
 
 import { Button } from "@/components/ui/button"
 
+import { getJobApplications } from "@/data-access/jobApplications"
+
+import { SessionProvider } from "next-auth/react"
+
 import Link from "next/link"
 
+// Page
 export default async function Dashboard() {
 	const session = await auth()
 
@@ -44,9 +48,19 @@ export default async function Dashboard() {
 			</>
 		)
 
-	const data: JobApplication[] | null = await useGetJobApplications(
-		session.userId
-	)
+	const { data, error } = await getJobApplications(session.userId)
+
+	if (error) {
+		return (
+			<>
+				<DashboardNavbar />
+				<div className="px-10">
+					<h1>An error occured with fetching your data.</h1>
+					<p>Error Message : {error}</p>
+				</div>
+			</>
+		)
+	}
 
 	if (data) {
 		return (
@@ -56,7 +70,9 @@ export default async function Dashboard() {
 				{/* <div>{JSON.stringify(session, null, 2)}</div> */}
 
 				<div className="container pt-5 pb-10">
-					<DashBoardAddButton />
+					<SessionProvider>
+						<DashBoardAddButton />
+					</SessionProvider>
 				</div>
 
 				<div className="container pt-5">

@@ -22,15 +22,46 @@ import { PlusCircledIcon } from "@radix-ui/react-icons"
 import { DatePicker } from "./DatePicker"
 import { SelectStatus } from "./Select"
 
+import { useSession } from "next-auth/react"
+
+import { useRouter } from "next/navigation"
 export function DashBoardAddButton() {
+	const router = useRouter()
+	const session = useSession()
+
 	const [date, setDate] = useState<Date>()
 	const [title, setTitle] = useState<string>("")
-	const [applicationStatus, setStatus] = useState<string>("")
+	const [companyName, setCompanyName] = useState<string>("")
+	const [applicationStatus, setStatus] = useState<string>("pending")
 
-	const formSubmit = () => {
-		console.log(title)
-		console.log(date)
-		console.log(applicationStatus)
+	const formSubmit = async () => {
+		try {
+			const response = await fetch(`http://localhost:3001/api/jobapps/`, {
+				method: "POST",
+				headers: {
+					Authorization: "Bearer " + session.data?.id_token,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					user_id: session.data?.userId,
+					title: title,
+					date_applied: `${date?.getMonth()}-${date?.getDate()}-${date?.getFullYear()}`,
+					application_status: applicationStatus,
+					company_name: companyName,
+				}),
+			})
+			router.refresh()
+		} catch (e) {
+			// if (e instanceof Error) {
+			// 	error = e.message
+			// 	return { data, error }
+			// }
+		}
+
+		// console.log(session.data)
+		// console.log(title)
+		// console.log(date)
+		// console.log(applicationStatus)
 	}
 
 	return (
@@ -61,6 +92,17 @@ export function DashBoardAddButton() {
 							value={title}
 							onChange={(event) => {
 								setTitle(event.target.value)
+							}}
+						/>
+					</div>
+					<div className="flex flex-col gap-4">
+						<Label htmlFor="name">Company Name</Label>
+						<Input
+							id="companyName"
+							placeholder="Amazon"
+							value={companyName}
+							onChange={(event) => {
+								setCompanyName(event.target.value)
 							}}
 						/>
 					</div>

@@ -1,15 +1,6 @@
 import Navbar from "@/components/HomeNavbar/HomeNavbar"
 
-async function getNotes() {
-	const res = await fetch(`http://localhost:3001/api/notes`)
-	return res.json()
-}
-
 export default async function Home() {
-	// const notesData = getNotes();
-
-	// const [notes] = await Promise.all([notesData]);
-
 	return (
 		<main className="px-96">
 			<Navbar />

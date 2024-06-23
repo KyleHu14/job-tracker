@@ -51,17 +51,7 @@ export function DashBoardAddButton() {
 				}),
 			})
 			router.refresh()
-		} catch (e) {
-			// if (e instanceof Error) {
-			// 	error = e.message
-			// 	return { data, error }
-			// }
-		}
-
-		// console.log(session.data)
-		// console.log(title)
-		// console.log(date)
-		// console.log(applicationStatus)
+		} catch (e) {}
 	}
 
 	return (

@@ -24,7 +24,8 @@ app.get("/api", (request, response) => {
 	response.json({ message: "Welcome to the Job Tracker API." })
 })
 
-app.use("/api/users", usersRouter)
+// For now, we will not use the users route, since this doesnt have correct auth implemented
+// app.use("/api/users", usersRouter)
 app.use("/api/jobapps", jobsRouter)
 
 app.use(middleware.unknownEndpoint)

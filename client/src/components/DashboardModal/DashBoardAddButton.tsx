@@ -36,20 +36,23 @@ export function DashBoardAddButton() {
 
 	const formSubmit = async () => {
 		try {
-			const response = await fetch(`http://localhost:3001/api/jobapps/`, {
-				method: "POST",
-				headers: {
-					Authorization: "Bearer " + session.data?.id_token,
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					user_id: session.data?.userId,
-					title: title,
-					date_applied: `${date?.getMonth()}-${date?.getDate()}-${date?.getFullYear()}`,
-					application_status: applicationStatus,
-					company_name: companyName,
-				}),
-			})
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_API_URL}/jobapps/`,
+				{
+					method: "POST",
+					headers: {
+						Authorization: "Bearer " + session.data?.id_token,
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						user_id: session.data?.userId,
+						title: title,
+						date_applied: `${date?.getMonth()}-${date?.getDate()}-${date?.getFullYear()}`,
+						application_status: applicationStatus,
+						company_name: companyName,
+					}),
+				}
+			)
 			router.refresh()
 		} catch (e) {}
 	}

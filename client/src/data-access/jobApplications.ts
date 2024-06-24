@@ -15,7 +15,7 @@ export const getJobApplications = async (
 
 	try {
 		const response = await fetch(
-			`http://localhost:3001/api/jobapps/${userId}`,
+			`${process.env.NEXT_PUBLIC_API_URL}/jobapps/${userId}`,
 			{
 				method: "GET",
 				headers: {

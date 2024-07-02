@@ -6,5 +6,9 @@ CREATE TABLE
     company_name text,
     date_applied date,
     application_status text,
+    link text,
+    location text,
+    salary int,
+    employment_type text,
     primary key(id)
 )

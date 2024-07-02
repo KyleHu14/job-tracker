@@ -20,6 +20,22 @@ export const jobColumns: ColumnDef<JobApplication, any>[] = [
 		header: "Company",
 	},
 	{
+		accessorKey: "location",
+		header: "Location",
+	},
+	{
+		accessorKey: "employment_type",
+		header: "Type",
+	},
+	{
+		accessorKey: "salary",
+		header: "Salary",
+	},
+	{
+		accessorKey: "link",
+		header: "Link",
+	},
+	{
 		accessorKey: "date_applied",
 		header: "Date Applied",
 	},

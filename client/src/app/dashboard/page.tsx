@@ -2,7 +2,7 @@ import { jobColumns } from "./columns"
 import { DataTable } from "./data-table"
 
 import DashboardNavbar from "@/components/DashboardNavbar/DashboardNavbar"
-import { DashBoardAddButton } from "@/components/DashboardModal/DashBoardAddButton"
+import { DashBoardAddButton } from "@/components/AddJobButton/DashBoardAddButton"
 
 import { auth } from "@/auth"
 

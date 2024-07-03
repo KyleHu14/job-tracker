@@ -3,9 +3,10 @@
 import { ColumnDef } from "@tanstack/react-table"
 
 export type JobApplication = {
-	id: string
 	job_title: string
 	company_name: string
+	location: string
+	employment_type: string
 	date_applied: string
 	application_status: string
 }
@@ -32,15 +33,19 @@ export const jobColumns: ColumnDef<JobApplication, any>[] = [
 		header: "Salary",
 	},
 	{
-		accessorKey: "link",
-		header: "Link",
-	},
-	{
 		accessorKey: "date_applied",
 		header: "Date Applied",
 	},
 	{
 		accessorKey: "application_status",
 		header: "Application Status",
+	},
+	{
+		accessorKey: "link",
+		header: "",
+	},
+	{
+		accessorKey: "job_id",
+		header: "",
 	},
 ]

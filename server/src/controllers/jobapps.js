@@ -32,4 +32,23 @@ jobsRouter.get("/:userId", async (request, response) => {
 	response.json(userJobApps)
 })
 
+jobsRouter.delete("/", async (request, response) => {
+	const { jobId } = request.body // Assuming jobId is also passed in the body
+	const requestToken = getTokenFrom(request)
+
+	try {
+		await verify(requestToken)
+
+		const deleteResult = await deleteJobApp(jobId) // Assume deleteJobApp takes userId and jobId
+
+		if (deleteResult) {
+			response.status(204).end() // No Content
+		} else {
+			response.status(404).json({ error: "Job application not found" })
+		}
+	} catch (error) {
+		response.status(401).json({ error: "Unauthorized" })
+	}
+})
+
 module.exports = jobsRouter

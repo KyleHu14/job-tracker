@@ -16,6 +16,8 @@ import {
 	TableRow,
 } from "@/components/ui/table"
 
+import { JobActions } from "@/components/JobActions/JobActions"
+
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[]
 	data: TData[]
@@ -47,10 +49,11 @@ export function DataTable<TData, TValue>({
 														header.column.columnDef
 															.header,
 														header.getContext()
-													)}
+												  )}
 										</TableHead>
 									)
 								})}
+								{/* Header for buttons per record (like edit, delete, link) */}
 							</TableRow>
 						))}
 					</TableHeader>
@@ -62,14 +65,28 @@ export function DataTable<TData, TValue>({
 									data-state={
 										row.getIsSelected() && "selected"
 									}>
-									{row.getVisibleCells().map((cell) => (
-										<TableCell key={cell.id}>
-											{flexRender(
-												cell.column.columnDef.cell,
-												cell.getContext()
-											)}
-										</TableCell>
-									))}
+									{row
+										.getVisibleCells()
+										.filter(
+											(cell) =>
+												!cell.id.includes("_link") &&
+												!cell.id.includes("_job_id")
+										)
+										.map((cell) => (
+											<TableCell key={cell.id}>
+												{flexRender(
+													cell.column.columnDef.cell,
+													cell.getContext()
+												)}
+											</TableCell>
+										))}
+									<TableCell></TableCell>
+									<TableCell className="px-0 inline-block">
+										<JobActions
+											jobId={row.getValue("job_id")}
+											link={row.getValue("link")}
+										/>
+									</TableCell>
 								</TableRow>
 							))
 						) : (

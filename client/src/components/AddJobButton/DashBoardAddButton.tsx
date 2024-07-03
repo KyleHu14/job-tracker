@@ -20,8 +20,6 @@ import { Label } from "@/components/ui/label"
 
 import { PlusCircledIcon } from "@radix-ui/react-icons"
 import { DatePicker } from "./DatePicker"
-import { SelectStatus } from "./SelectStatus"
-import { SelectEmploymentType } from "./SelectEmploymentType"
 import { FormSelector } from "./FormSelector"
 
 import { useSession } from "next-auth/react"

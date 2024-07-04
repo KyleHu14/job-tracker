@@ -50,4 +50,22 @@ const getUserJobApps = async (userId) => {
 	return data
 }
 
-module.exports = { getJobApps, deleteAllJobApps, createJobApps, getUserJobApps }
+const deleteJobApp = async (jobId) => {
+	const { data, error } = await supabaseClient.rpc("delete_job_app", {
+		job_id: jobId,
+	})
+
+	if (error) {
+		throwSupabaseError(error)
+	}
+
+	return data
+}
+
+module.exports = {
+	getJobApps,
+	deleteAllJobApps,
+	createJobApps,
+	getUserJobApps,
+	deleteJobApp,
+}

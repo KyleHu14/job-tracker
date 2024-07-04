@@ -67,7 +67,7 @@ export default async function Dashboard() {
 			<>
 				<DashboardNavbar />
 
-				{/* <div>{JSON.stringify(session, null, 2)}</div> */}
+				<div>{JSON.stringify(session, null, 2)}</div>
 
 				<div className="container pt-5 pb-10">
 					<SessionProvider>

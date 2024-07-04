@@ -37,13 +37,11 @@ jobsRouter.delete("/", async (request, response) => {
 	const { jobId } = request.body // Assuming jobId is also passed in the body
 	const requestToken = getTokenFrom(request)
 
-	try {
-		await verify(requestToken)
+	await verify(requestToken)
 
-		const deleteResult = await deleteJobApp(jobId) // Assume deleteJobApp takes userId and jobId
-	} catch (error) {
-		response.status(401).json({ error: "Unauthorized" })
-	}
+	const deleteResult = await deleteJobApp(jobId) // Assume deleteJobApp takes userId and jobId
+
+	response.status(200)
 })
 
 module.exports = jobsRouter

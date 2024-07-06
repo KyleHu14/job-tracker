@@ -83,9 +83,13 @@ export function DashBoardAddButton() {
 						body: JSON.stringify({
 							user_id: session.data?.userId,
 							title: title,
+							company_name: companyName,
 							date_applied: dateString,
 							application_status: applicationStatus,
-							company_name: companyName,
+							link: jobLink,
+							location: location,
+							salary: salary,
+							employment_type: employmentType,
 						}),
 					}
 				)

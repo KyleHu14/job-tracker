@@ -21,11 +21,13 @@ import { JobActions } from "@/components/JobActions/JobActions"
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[]
 	data: TData[]
+	idToken: string
 }
 
 export function DataTable<TData, TValue>({
 	columns,
 	data,
+	idToken,
 }: DataTableProps<TData, TValue>) {
 	const table = useReactTable({
 		data,
@@ -49,7 +51,7 @@ export function DataTable<TData, TValue>({
 														header.column.columnDef
 															.header,
 														header.getContext()
-												  )}
+													)}
 										</TableHead>
 									)
 								})}
@@ -85,6 +87,7 @@ export function DataTable<TData, TValue>({
 										<JobActions
 											jobId={row.getValue("job_id")}
 											link={row.getValue("link")}
+											idToken={idToken}
 										/>
 									</TableCell>
 								</TableRow>

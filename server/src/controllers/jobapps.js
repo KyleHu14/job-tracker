@@ -33,13 +33,12 @@ jobsRouter.get("/:userId", async (request, response) => {
 	response.json(userJobApps)
 })
 
-jobsRouter.delete("/", async (request, response) => {
-	const { jobId } = request.body // Assuming jobId is also passed in the body
+jobsRouter.delete("/:jobId", async (request, response) => {
 	const requestToken = getTokenFrom(request)
 
 	await verify(requestToken)
 
-	const deleteResult = await deleteJobApp(jobId) // Assume deleteJobApp takes userId and jobId
+	const deleteResult = await deleteJobApp(request.params.jobId) // Assume deleteJobApp takes userId and jobId
 
 	response.status(200)
 })

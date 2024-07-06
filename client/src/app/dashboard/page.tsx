@@ -62,7 +62,7 @@ export default async function Dashboard() {
 		)
 	}
 
-	if (data) {
+	if (data && session.id_token) {
 		return (
 			<>
 				<DashboardNavbar />
@@ -76,7 +76,11 @@ export default async function Dashboard() {
 				</div>
 
 				<div className="container pt-5">
-					<DataTable columns={jobColumns} data={data} />
+					<DataTable
+						columns={jobColumns}
+						data={data}
+						idToken={session.id_token}
+					/>
 				</div>
 			</>
 		)

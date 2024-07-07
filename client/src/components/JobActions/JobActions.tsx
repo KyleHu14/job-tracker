@@ -1,6 +1,6 @@
 import { Button } from "../ui/button"
 
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 
 interface JobActionsProps {
 	jobId: string
@@ -9,20 +9,34 @@ interface JobActionsProps {
 }
 
 export function JobActions({ jobId, link, idToken }: JobActionsProps) {
-	const handleDelete = async (deleteId: string) => {
+	const router = useRouter()
+
+	const formSubmit = async () => {
 		try {
-			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/jobapps/${jobId}`,
-				{
-					method: "DELETE",
-					headers: {
-						Authorization: "Bearer " + idToken,
-						"Content-Type": "application/json",
-					},
-				}
-			)
-			redirect("/dashboard")
+			const url = `${process.env.NEXT_PUBLIC_API_URL}/jobapps/${jobId}`
+			const response = await fetch(url, {
+				method: "DELETE",
+				headers: {
+					Authorization: "Bearer " + idToken,
+					"Content-Type": "application/json",
+				},
+			})
+
+			router.refresh()
 		} catch (e) {}
+		// try {
+		// 	const response = await fetch(
+		// 		`${process.env.NEXT_PUBLIC_API_URL}/jobapps/${jobId}`,
+		// 		{
+		// 			method: "DELETE",
+		// 			headers: {
+		// 				Authorization: "Bearer " + idToken,
+		// 				"Content-Type": "application/json",
+		// 			},
+		// 		}
+		// 	)
+		// 	router.refresh()
+		// } catch (e) {}
 	}
 
 	return (
@@ -32,7 +46,9 @@ export function JobActions({ jobId, link, idToken }: JobActionsProps) {
 			</a>
 
 			<Button>Edit</Button>
-			<Button onClick={() => handleDelete(jobId)}>Delete</Button>
+			<Button type="submit" onClick={formSubmit}>
+				Delete
+			</Button>
 		</div>
 	)
 }

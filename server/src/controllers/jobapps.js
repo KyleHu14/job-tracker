@@ -40,7 +40,7 @@ jobsRouter.delete("/:jobId", async (request, response) => {
 
 	const deleteResult = await deleteJobApp(request.params.jobId) // Assume deleteJobApp takes userId and jobId
 
-	response.status(200)
+	response.status(200).end()
 })
 
 module.exports = jobsRouter

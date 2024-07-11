@@ -30,8 +30,8 @@ export function DashBoardAddButton() {
 	const session = useSession()
 
 	const EmploymentTypeOptions = [
-		{ storedValue: "fullTime", displayValue: "Full Time" },
-		{ storedValue: "partTime", displayValue: "Part Time" },
+		{ storedValue: "full_time", displayValue: "Full Time" },
+		{ storedValue: "part_time", displayValue: "Part Time" },
 		{ storedValue: "internship", displayValue: "Internship" },
 		{ storedValue: "contract", displayValue: "Contract" },
 		{ storedValue: "freelance", displayValue: "Freelance" },
@@ -51,9 +51,20 @@ export function DashBoardAddButton() {
 	const [companyName, setCompanyName] = useState<string>("")
 	const [jobLink, setJobLink] = useState<string>("")
 	const [applicationStatus, setStatus] = useState<string>("pending")
-	const [employmentType, setEmploymentType] = useState<string>("fullTime")
+	const [employmentType, setEmploymentType] = useState<string>("full_time")
 	const [location, setLocation] = useState<string>("")
 	const [salary, setSalary] = useState<number>(0)
+
+	const clearForm = () => {
+		setDate(undefined)
+		setTitle("")
+		setCompanyName("")
+		setJobLink("")
+		setStatus("pending")
+		setEmploymentType("full_time")
+		setLocation("")
+		setSalary(0)
+	}
 
 	const formSubmit = async () => {
 		const { data } = session
@@ -94,6 +105,7 @@ export function DashBoardAddButton() {
 						}),
 					}
 				)
+				clearForm()
 				router.refresh()
 			} catch (e) {}
 		}

@@ -24,19 +24,6 @@ export function JobActions({ jobId, link, idToken }: JobActionsProps) {
 
 			router.refresh()
 		} catch (e) {}
-		// try {
-		// 	const response = await fetch(
-		// 		`${process.env.NEXT_PUBLIC_API_URL}/jobapps/${jobId}`,
-		// 		{
-		// 			method: "DELETE",
-		// 			headers: {
-		// 				Authorization: "Bearer " + idToken,
-		// 				"Content-Type": "application/json",
-		// 			},
-		// 		}
-		// 	)
-		// 	router.refresh()
-		// } catch (e) {}
 	}
 
 	return (

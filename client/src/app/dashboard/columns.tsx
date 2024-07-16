@@ -40,6 +40,7 @@ export const jobColumns: ColumnDef<JobApplication, any>[] = [
 		accessorKey: "application_status",
 		header: "Application Status",
 	},
+	// We need these two accessors since the application requires to make edits which needs the job_id
 	{
 		accessorKey: "link",
 		header: "",

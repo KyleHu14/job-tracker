@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/table"
 
 import { JobActions } from "@/components/JobActions/JobActions"
+import { EditText } from "react-edit-text"
+import "react-edit-text/dist/index.css"
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[]
@@ -35,10 +37,18 @@ export function DataTable<TData, TValue>({
 		getCoreRowModel: getCoreRowModel(),
 	})
 
+	// prettier-ignore
+	const handleSave = (value: string , id: string, field: string) => {
+		console.log(value)
+		console.log(id)
+		console.log(field)
+	}
+
 	return (
 		<>
 			<div className="rounded-md border">
 				<Table>
+					{/* Row 1 of Table */}
 					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (
 							<TableRow key={headerGroup.id}>
@@ -55,10 +65,11 @@ export function DataTable<TData, TValue>({
 										</TableHead>
 									)
 								})}
-								{/* Header for buttons per record (like edit, delete, link) */}
 							</TableRow>
 						))}
 					</TableHeader>
+
+					{/* Everything else of the table */}
 					<TableBody>
 						{table.getRowModel().rows?.length ? (
 							table.getRowModel().rows.map((row) => (
@@ -67,6 +78,7 @@ export function DataTable<TData, TValue>({
 									data-state={
 										row.getIsSelected() && "selected"
 									}>
+									{/* For each row, filter out cells that have the link & job id */}
 									{row
 										.getVisibleCells()
 										.filter(
@@ -75,11 +87,21 @@ export function DataTable<TData, TValue>({
 												!cell.id.includes("_job_id")
 										)
 										.map((cell) => (
+											// This is where each cell of the table is rendered
 											<TableCell key={cell.id}>
-												{flexRender(
-													cell.column.columnDef.cell,
-													cell.getContext()
-												)}
+												{/* Allows for on click editing of values */}
+												<EditText
+													name="cellDisplay"
+													defaultValue={cell.getValue<string>()}
+													// prettier-ignore
+													onSave={({ value }: { value: string }) => {
+														handleSave(
+															value,
+															row.getValue("job_id"),
+															cell.column.id
+														)
+													}}
+												/>
 											</TableCell>
 										))}
 									<TableCell></TableCell>

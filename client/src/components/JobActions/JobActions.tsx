@@ -31,8 +31,6 @@ export function JobActions({ jobId, link, idToken }: JobActionsProps) {
 			<a href={link}>
 				<Button>Link</Button>
 			</a>
-
-			<Button>Edit</Button>
 			<Button type="submit" onClick={formSubmit}>
 				Delete
 			</Button>

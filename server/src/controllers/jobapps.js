@@ -21,11 +21,11 @@ jobsRouter.post("/", async (request, response) => {
 	response.status(201).json(createData)
 })
 
-jobsRouter.get("/", async (request, response) => {
-	const jobApplicationData = await getJobApps()
+// jobsRouter.get("/", async (request, response) => {
+// 	const jobApplicationData = await getJobApps()
 
-	response.json(jobApplicationData)
-})
+// 	response.json(jobApplicationData)
+// })
 
 jobsRouter.get("/:userId", async (request, response) => {
 	const userJobApps = await getUserJobApps(request.params.userId)

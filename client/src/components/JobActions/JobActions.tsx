@@ -11,7 +11,7 @@ interface JobActionsProps {
 export function JobActions({ jobId, link, idToken }: JobActionsProps) {
 	const router = useRouter()
 
-	const formSubmit = async () => {
+	const handleDelete = async () => {
 		try {
 			const url = `${process.env.NEXT_PUBLIC_API_URL}/jobapps/${jobId}`
 			const response = await fetch(url, {
@@ -26,12 +26,17 @@ export function JobActions({ jobId, link, idToken }: JobActionsProps) {
 		} catch (e) {}
 	}
 
+	const handleEdit = async () => {}
+
 	return (
 		<div className="flex gap-3 justify-end">
 			<a href={link}>
 				<Button>Link</Button>
 			</a>
-			<Button type="submit" onClick={formSubmit}>
+			<Button type="submit" onClick={handleEdit}>
+				Edit
+			</Button>
+			<Button type="submit" onClick={handleDelete}>
 				Delete
 			</Button>
 		</div>

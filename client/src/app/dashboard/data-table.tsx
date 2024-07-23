@@ -16,9 +16,9 @@ import {
 	TableRow,
 } from "@/components/ui/table"
 
+import DataRow from "@/components/DataRow/DataRow"
+
 import { JobActions } from "@/components/JobActions/JobActions"
-import { EditText } from "react-edit-text"
-import "react-edit-text/dist/index.css"
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[]
@@ -26,23 +26,15 @@ interface DataTableProps<TData, TValue> {
 	idToken: string
 }
 
-export function DataTable<TData, TValue>({
-	columns,
-	data,
-	idToken,
-}: DataTableProps<TData, TValue>) {
+// prettier-ignore
+export function DataTable<TData, TValue>({ columns, data, idToken, }: DataTableProps<TData, TValue>) {
 	const table = useReactTable({
 		data,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 	})
 
-	// prettier-ignore
-	const handleSave = (value: string , id: string, field: string) => {
-		console.log(value)
-		console.log(id)
-		console.log(field)
-	}
+
 
 	return (
 		<>
@@ -73,37 +65,13 @@ export function DataTable<TData, TValue>({
 					<TableBody>
 						{table.getRowModel().rows?.length ? (
 							table.getRowModel().rows.map((row) => (
-								<TableRow
-									key={row.id}
-									data-state={
-										row.getIsSelected() && "selected"
-									}>
-									{/* For each row, filter out cells that have the link & job id */}
-									{row
-										.getVisibleCells()
-										.filter(
-											(cell) =>
-												!cell.id.includes("_link") &&
-												!cell.id.includes("_job_id")
-										)
-										.map((cell) => (
-											// This is where each cell of the table is rendered
-											<TableCell key={cell.id}>
-												{/* Allows for on click editing of values */}
-												<EditText
-													name="cellDisplay"
-													defaultValue={cell.getValue<string>()}
-													// prettier-ignore
-													onSave={({ value }: { value: string }) => {
-														handleSave(
-															value,
-															row.getValue("job_id"),
-															cell.column.id
-														)
-													}}
-												/>
-											</TableCell>
-										))}
+								// Render the row of the table
+								<TableRow key={row.id} data-state={ row.getIsSelected() && "selected" }>
+									
+									{/* 1. First render the cells that contain data */}
+									<DataRow row={row}/>
+
+									{/* 2. This section is for cells that handle job actions */}
 									<TableCell></TableCell>
 									<TableCell className="px-0 inline-block">
 										<JobActions

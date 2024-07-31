@@ -2,6 +2,8 @@ import { Button } from "../ui/button"
 
 import { useRouter } from "next/navigation"
 
+import { DashBoardEditButton } from "../DashboardButton/DashBoardEditButton"
+
 interface JobActionsProps {
 	jobId: string
 	link: string
@@ -26,16 +28,12 @@ export function JobActions({ jobId, link, idToken }: JobActionsProps) {
 		} catch (e) {}
 	}
 
-	const handleEdit = async () => {}
-
 	return (
 		<div className="flex gap-3 justify-end">
 			<a href={link}>
 				<Button>Link</Button>
 			</a>
-			<Button type="submit" onClick={handleEdit}>
-				Edit
-			</Button>
+			<DashBoardEditButton idToken={idToken} />
 			<Button type="submit" onClick={handleDelete}>
 				Delete
 			</Button>

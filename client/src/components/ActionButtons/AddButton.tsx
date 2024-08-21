@@ -25,7 +25,8 @@ import { FormSelector } from "./FormSelector"
 import { useSession } from "next-auth/react"
 
 import { useRouter } from "next/navigation"
-export function DashBoardAddButton() {
+
+export function AddButton() {
 	const router = useRouter()
 	const session = useSession()
 

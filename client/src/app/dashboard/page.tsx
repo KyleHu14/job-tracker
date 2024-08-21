@@ -2,7 +2,7 @@ import { jobColumns } from "./columns"
 import { DataTable } from "./data-table"
 
 import DashboardNavbar from "@/components/DashboardNavbar/DashboardNavbar"
-import { DashBoardAddButton } from "@/components/AddJobButton/DashBoardAddButton"
+import { AddButton } from "@/components/ActionButtons/AddButton"
 
 import { auth } from "@/auth"
 
@@ -71,7 +71,7 @@ export default async function Dashboard() {
 
 				<div className="container pt-5 pb-10">
 					<SessionProvider>
-						<DashBoardAddButton />
+						<AddButton />
 					</SessionProvider>
 				</div>
 

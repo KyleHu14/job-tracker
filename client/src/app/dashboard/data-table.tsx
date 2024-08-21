@@ -90,18 +90,20 @@ export function DataTable<TData, TValue>({
 											// This is where each cell of the table is rendered
 											<TableCell key={cell.id}>
 												{/* Allows for on click editing of values */}
-												<EditText
-													name="cellDisplay"
-													defaultValue={cell.getValue<string>()}
-													// prettier-ignore
-													onSave={({ value }: { value: string }) => {
+												<div className="max-w-24">
+													<EditText
+														name="cellDisplay"
+														defaultValue={cell.getValue<string>()}
+														// prettier-ignore
+														onSave={({ value }: { value: string }) => {
 														handleSave(
 															value,
 															row.getValue("job_id"),
 															cell.column.id
 														)
 													}}
-												/>
+													/>
+												</div>
 											</TableCell>
 										))}
 									<TableCell></TableCell>

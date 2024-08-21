@@ -1,3 +1,5 @@
+import { Link, Trash2 } from "lucide-react"
+import { EditButton } from "../ActionButtons/EditButton"
 import { Button } from "../ui/button"
 
 import { useRouter } from "next/navigation"
@@ -29,9 +31,16 @@ export function JobActions({ jobId, link, idToken }: JobActionsProps) {
 	return (
 		<div className="flex gap-3 justify-end">
 			<a href={link}>
-				<Button>Link</Button>
+				<Button>
+					<Link className="mr-2 h-4 w-4" />
+					Link
+				</Button>
 			</a>
+
+			<EditButton />
+
 			<Button type="submit" onClick={formSubmit}>
+				<Trash2 className="mr-2 h-4 w-4" />
 				Delete
 			</Button>
 		</div>

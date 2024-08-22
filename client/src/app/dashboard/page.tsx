@@ -26,7 +26,7 @@ import Link from "next/link"
 export default async function Dashboard() {
 	const session = await auth()
 
-	if (!session || !session.userId)
+	if (!session)
 		return (
 			<>
 				<div className=" w-screen h-screen flex justify-center items-center">
@@ -36,6 +36,28 @@ export default async function Dashboard() {
 							<CardDescription>
 								You must login before tracking your job
 								applications.
+							</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<Button>
+								<Link href="/">Back to Home</Link>
+							</Button>
+						</CardContent>
+					</Card>
+				</div>
+			</>
+		)
+
+	if (!session.userId)
+		return (
+			<>
+				<div className=" w-screen h-screen flex justify-center items-center">
+					<Card className="w-[350px]">
+						<CardHeader>
+							<CardTitle>Database Error</CardTitle>
+							<CardDescription>
+								There was a problem with fetching your user id.
+								Notify the development team ASAP.
 							</CardDescription>
 						</CardHeader>
 						<CardContent>

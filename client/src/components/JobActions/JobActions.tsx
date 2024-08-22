@@ -13,7 +13,7 @@ interface JobActionsProps {
 export function JobActions({ jobId, link, idToken }: JobActionsProps) {
 	const router = useRouter()
 
-	const formSubmit = async () => {
+	const handleDelete = async () => {
 		try {
 			const url = `${process.env.NEXT_PUBLIC_API_URL}/jobapps/${jobId}`
 			const response = await fetch(url, {
@@ -39,7 +39,7 @@ export function JobActions({ jobId, link, idToken }: JobActionsProps) {
 
 			<EditButton />
 
-			<Button type="submit" onClick={formSubmit}>
+			<Button type="submit" onClick={handleDelete}>
 				<Trash2 className="mr-2 h-4 w-4" />
 				Delete
 			</Button>

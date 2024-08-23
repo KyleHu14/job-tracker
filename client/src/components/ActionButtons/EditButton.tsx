@@ -78,11 +78,30 @@ export function EditButton({
 	const [salary, setSalary] = useState<number>(curSalary)
 	const [employmentType, setEmploymentType] =
 		useState<string>(curEmploymentType)
-	const [date, setDate] = useState<Date | undefined>(new Date(curDate))
+	const [date, setDate] = useState<Date | undefined>(
+		new Date(curDate + "T00:00:00")
+	)
 	const [applicationStatus, setStatus] =
 		useState<string>(curApplicationStatus)
 
-	const formSubmit = async () => {}
+	const formSubmit = async () => {
+		// prettier-ignore
+		const dateString = date ? `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`  : null
+		try {
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_API_URL}/jobapps/`,
+				{
+					method: "POST",
+					headers: {
+						Authorization: "Bearer " + idToken,
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({}),
+				}
+			)
+			router.refresh()
+		} catch (e) {}
+	}
 
 	return (
 		<Dialog>

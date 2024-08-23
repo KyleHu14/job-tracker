@@ -76,8 +76,15 @@ export function DataTable<TData, TValue>({ columns, data, idToken, }: DataTableP
 									<TableCell className="px-0 inline-block">
 										<JobActions
 											jobId={row.getValue("job_id")}
-											link={row.getValue("link")}
 											idToken={idToken}
+											title={row.getValue("job_title")}
+											companyName={row.getValue("company_name")}
+											link={row.getValue("link")}
+											location={row.getValue("location")}
+											salary={row.getValue("salary")}
+											employmentType={row.getValue("employment_type")}
+											date={row.getValue("date_applied")}
+											applicationStatus={row.getValue("application_status")}
 										/>
 									</TableCell>
 								</TableRow>

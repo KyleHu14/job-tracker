@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -18,16 +18,39 @@ import { Input } from "@/components/ui/input"
 
 import { Label } from "@/components/ui/label"
 
-import { PlusCircledIcon } from "@radix-ui/react-icons"
-import { DatePicker } from "./DatePicker"
-import { FormSelector } from "./FormSelector"
+import { DatePicker } from "../FormInputs/DatePicker"
+import { FormSelector } from "../FormInputs/FormSelector"
 
-import { useSession } from "next-auth/react"
+import { getAllJobApplications } from "@/data-access/jobApplications"
 
 import { useRouter } from "next/navigation"
 import { Pencil } from "lucide-react"
 
-export function EditButton() {
+interface Props {
+	idToken: string
+	jobId: string
+	curTitle: string
+	curCompanyName: string
+	curLink: string
+	curLocation: string
+	curSalary: number
+	curEmploymentType: string
+	curDate: string
+	curApplicationStatus: string
+}
+
+export function EditButton({
+	idToken,
+	jobId,
+	curTitle,
+	curCompanyName,
+	curLink,
+	curLocation,
+	curSalary,
+	curEmploymentType,
+	curDate,
+	curApplicationStatus,
+}: Props) {
 	const router = useRouter()
 	// const session = useSession()
 
@@ -48,25 +71,16 @@ export function EditButton() {
 	]
 
 	// Form Values
-	const [date, setDate] = useState<Date>()
-	const [title, setTitle] = useState<string>("")
-	const [companyName, setCompanyName] = useState<string>("")
-	const [jobLink, setJobLink] = useState<string>("")
-	const [applicationStatus, setStatus] = useState<string>("pending")
-	const [employmentType, setEmploymentType] = useState<string>("full_time")
-	const [location, setLocation] = useState<string>("")
-	const [salary, setSalary] = useState<number>(0)
-
-	const clearForm = () => {
-		setDate(undefined)
-		setTitle("")
-		setCompanyName("")
-		setJobLink("")
-		setStatus("pending")
-		setEmploymentType("full_time")
-		setLocation("")
-		setSalary(0)
-	}
+	const [title, setTitle] = useState<string>(curTitle)
+	const [companyName, setCompanyName] = useState<string>(curCompanyName)
+	const [jobLink, setJobLink] = useState<string>(curLink)
+	const [location, setLocation] = useState<string>(curLocation)
+	const [salary, setSalary] = useState<number>(curSalary)
+	const [employmentType, setEmploymentType] =
+		useState<string>(curEmploymentType)
+	const [date, setDate] = useState<Date | undefined>(new Date(curDate))
+	const [applicationStatus, setStatus] =
+		useState<string>(curApplicationStatus)
 
 	const formSubmit = async () => {}
 

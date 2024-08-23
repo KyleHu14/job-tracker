@@ -16,7 +16,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 
-import { getJobApplications } from "@/data-access/jobApplications"
+import { getAllJobApplications } from "@/data-access/jobApplications"
 
 import { SessionProvider } from "next-auth/react"
 
@@ -70,7 +70,7 @@ export default async function Dashboard() {
 			</>
 		)
 
-	const { data, error } = await getJobApplications(session.userId)
+	const { data, error } = await getAllJobApplications(session.userId)
 
 	if (error) {
 		return (

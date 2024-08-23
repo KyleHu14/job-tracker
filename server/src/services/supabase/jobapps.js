@@ -3,7 +3,7 @@ const supabaseClient = require("./supabase")
 const throwSupabaseError = require("../../utils/supabaseErrorThrower")
 
 const getJobApps = async () => {
-	const { data, error } = await supabaseClient.rpc("get_job_applications")
+	const { data, error } = await supabaseClient.rpc("get_job_applications", {})
 
 	if (error) {
 		throwSupabaseError(error)
@@ -62,10 +62,26 @@ const deleteJobApp = async (jobId) => {
 	return data
 }
 
+const editJobApp = async (jobId, updateData) => {
+	const { data, error } = await supabaseClient
+		.from("job_application")
+		.update(updateData)
+		.eq("id", jobId)
+		.select()
+
+	if (error) {
+		console.log(error)
+		throwSupabaseError(error)
+	}
+
+	return data
+}
+
 module.exports = {
 	getJobApps,
 	deleteAllJobApps,
 	createJobApps,
 	getUserJobApps,
 	deleteJobApp,
+	editJobApp,
 }

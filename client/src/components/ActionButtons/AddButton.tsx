@@ -19,8 +19,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 import { PlusCircledIcon } from "@radix-ui/react-icons"
-import { DatePicker } from "./DatePicker"
-import { FormSelector } from "./FormSelector"
+import { DatePicker } from "../FormInputs/DatePicker"
+import { FormSelector } from "../FormInputs/FormSelector"
 
 import { useSession } from "next-auth/react"
 

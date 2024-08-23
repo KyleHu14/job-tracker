@@ -7,7 +7,7 @@ interface GetJobApplicationsReturnTypes {
 }
 
 // Fetch Function
-export const getJobApplications = async (
+export const getAllJobApplications = async (
 	userId: string
 ): Promise<GetJobApplicationsReturnTypes> => {
 	let data = null

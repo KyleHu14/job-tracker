@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/jobapps/0028668e-90ac-4280-ab3c-6c0ac1e7b2a5
+Content-Type: application/json
+
+{
+  "title": "Senior Full Stack Engineer",
+  "date_applied": "8-22-2024"
+}

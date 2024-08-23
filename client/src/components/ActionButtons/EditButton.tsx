@@ -85,18 +85,30 @@ export function EditButton({
 		useState<string>(curApplicationStatus)
 
 	const formSubmit = async () => {
+		// Build the edit body first
+		const editBody = {
+			title: title,
+			company_name: companyName,
+			link: jobLink,
+			location: location,
+			salary: salary,
+			employment_type: employmentType,
+			date_applied: date
+				? `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`
+				: null,
+		}
+
 		// prettier-ignore
-		const dateString = date ? `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`  : null
 		try {
 			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/jobapps/`,
+				`${process.env.NEXT_PUBLIC_API_URL}/jobapps/${jobId}`,
 				{
-					method: "POST",
+					method: "PUT",
 					headers: {
 						Authorization: "Bearer " + idToken,
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({}),
+					body: JSON.stringify(editBody),
 				}
 			)
 			router.refresh()

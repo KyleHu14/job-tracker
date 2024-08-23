@@ -30,5 +30,6 @@ export const getAllJobApplications = async (
 			return { data, error }
 		}
 	}
+
 	return { data, error }
 }

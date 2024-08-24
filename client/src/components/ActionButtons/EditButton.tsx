@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -20,8 +20,6 @@ import { Label } from "@/components/ui/label"
 
 import { DatePicker } from "../FormInputs/DatePicker"
 import { FormSelector } from "../FormInputs/FormSelector"
-
-import { getAllJobApplications } from "@/data-access/jobApplications"
 
 import { useRouter } from "next/navigation"
 import { Pencil } from "lucide-react"
@@ -94,7 +92,9 @@ export function EditButton({
 			salary: salary,
 			employment_type: employmentType,
 			date_applied: date
-				? `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`
+				? `${
+						date.getMonth() + 1
+				  }-${date.getDate()}-${date.getFullYear()}`
 				: null,
 		}
 
@@ -123,7 +123,7 @@ export function EditButton({
 					Edit
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="sm:max-w-[425px]">
+			<DialogContent className="sm:max-w-[425px] overflow-y-auto max-h-full">
 				{/* Header for Modal */}
 				<DialogHeader>
 					<DialogTitle>Edit Job Application</DialogTitle>

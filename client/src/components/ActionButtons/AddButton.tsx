@@ -120,7 +120,7 @@ export function AddButton() {
 					Add a Job
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="sm:max-w-[425px]">
+			<DialogContent className="sm:max-w-[425px] overflow-y-auto max-h-full">
 				{/* Header for Modal */}
 				<DialogHeader>
 					<DialogTitle>Add a Job Application</DialogTitle>

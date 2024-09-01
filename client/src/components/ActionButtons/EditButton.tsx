@@ -94,7 +94,7 @@ export function EditButton({
 			date_applied: date
 				? `${
 						date.getMonth() + 1
-				  }-${date.getDate()}-${date.getFullYear()}`
+					}-${date.getDate()}-${date.getFullYear()}`
 				: null,
 		}
 

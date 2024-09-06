@@ -61,8 +61,6 @@ const config = {
 
 					const responseTokens = await response.json()
 
-					console.log(responseTokens)
-
 					if (!response.ok) throw responseTokens
 
 					return {

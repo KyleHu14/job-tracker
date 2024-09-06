@@ -70,41 +70,43 @@ export default async function Dashboard() {
 			</>
 		)
 
-	const { data, error } = await getAllJobApplications(session.userId)
+	// const { data, error } = await getAllJobApplications(session.userId)
 
-	if (error) {
-		return (
-			<>
-				<DashboardNavbar />
-				<div className="px-10">
-					<h1>An error occured with fetching your data.</h1>
-					<p>Error Message : {error}</p>
-				</div>
-			</>
-		)
-	}
+	return <div>Hello World</div>
 
-	if (data && session.id_token) {
-		return (
-			<>
-				<DashboardNavbar />
+	// if (error) {
+	// 	return (
+	// 		<>
+	// 			<DashboardNavbar />
+	// 			<div className="px-10">
+	// 				<h1>An error occured with fetching your data.</h1>
+	// 				<p>Error Message : {error}</p>
+	// 			</div>
+	// 		</>
+	// 	)
+	// }
 
-				{/* <div>{JSON.stringify(session, null, 2)}</div> */}
+	// if (data && session.id_token) {
+	// 	return (
+	// 		<>
+	// 			<DashboardNavbar />
 
-				<div className="container pt-5 pb-10">
-					<SessionProvider>
-						<AddButton />
-					</SessionProvider>
-				</div>
+	// 			{/* <div>{JSON.stringify(session, null, 2)}</div> */}
 
-				<div className="container pt-5">
-					<DataTable
-						columns={jobColumns}
-						data={data}
-						idToken={session.id_token}
-					/>
-				</div>
-			</>
-		)
-	}
+	// 			<div className="container pt-5 pb-10">
+	// 				<SessionProvider>
+	// 					<AddButton />
+	// 				</SessionProvider>
+	// 			</div>
+
+	// 			<div className="container pt-5">
+	// 				<DataTable
+	// 					columns={jobColumns}
+	// 					data={data}
+	// 					idToken={session.id_token}
+	// 				/>
+	// 			</div>
+	// 		</>
+	// 	)
+	// }
 }

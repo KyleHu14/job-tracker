@@ -70,7 +70,7 @@ export default async function Dashboard() {
 			</>
 		)
 
-	// const { data, error } = await getAllJobApplications(session.userId)
+	const { data, error } = await getAllJobApplications(session.userId)
 
 	return <div>Hello World</div>
 

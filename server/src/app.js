@@ -9,7 +9,6 @@ const cors = require("cors")
 const middleware = require("./utils/middleware")
 
 // 3. Routers
-const usersRouter = require("./controllers/users")
 const jobsRouter = require("./controllers/jobapps")
 
 // [Initializing]

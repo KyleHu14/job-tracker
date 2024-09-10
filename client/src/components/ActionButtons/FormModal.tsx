@@ -32,22 +32,6 @@ export function FormModal({
 	submitFunction,
 	children,
 }: Props) {
-	const EmploymentTypeOptions = [
-		{ storedValue: "full_time", displayValue: "Full Time" },
-		{ storedValue: "part_time", displayValue: "Part Time" },
-		{ storedValue: "internship", displayValue: "Internship" },
-		{ storedValue: "contract", displayValue: "Contract" },
-		{ storedValue: "freelance", displayValue: "Freelance" },
-		{ storedValue: "other", displayValue: "Other" },
-	]
-	const ApplicationStatusOptions = [
-		{ displayValue: "Accepted", storedValue: "accepted" },
-		{ displayValue: "Pending", storedValue: "pending" },
-		{ displayValue: "Rejected", storedValue: "rejected" },
-		{ displayValue: "Interviewing", storedValue: "interviewing" },
-		{ displayValue: "Offer", storedValue: "offer" },
-	]
-
 	return (
 		<Dialog>
 			<DialogTrigger asChild>

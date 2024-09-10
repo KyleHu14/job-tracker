@@ -13,10 +13,7 @@ export const getAllJobApplications = async (
 	let data = null
 	let error = null
 
-	console.log("Getting Job Aplications......")
-
 	try {
-		console.log("Starting.....")
 		const response = await fetch(
 			`${process.env.NEXT_PUBLIC_API_URL}/jobapps/${userId}`,
 			{
@@ -33,8 +30,6 @@ export const getAllJobApplications = async (
 			return { data, error }
 		}
 	}
-
-	console.log("DONE")
 
 	return { data, error }
 }
